@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/tasksListFragment">
+
+    <fragment
+        android:id="@+id/tasksListFragment"
+        android:name="com.example.appforstudents.Presentation.View.TasksListFragment"
+        android:label="fragment_tasks_list"
+        tools:layout="@layout/fragment_tasks_list" >
+        <action
+            android:id="@+id/action_tasksListFragment_to_completedTasksListFragment"
+            app:destination="@id/completedTasksListFragment" />
+        <action
+            android:id="@+id/action_tasksListFragment_to_solutionAnswerTaskFragment"
+            app:destination="@id/solutionAnswerTaskFragment" />
+        <action
+            android:id="@+id/action_tasksListFragment_to_solutionTestFragment"
+            app:destination="@id/solutionTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/completedTasksListFragment"
+        android:name="com.example.appforstudents.Presentation.View.CompletedTasksListFragment"
+        android:label="fragment_completed_tasks_list"
+        tools:layout="@layout/fragment_completed_tasks_list" >
+        <action
+            android:id="@+id/action_completedTasksListFragment_to_tasksListFragment"
+            app:destination="@id/tasksListFragment" />
+        <action
+            android:id="@+id/action_completedTasksListFragment_to_reviewCompletedTaskFragment"
+            app:destination="@id/reviewCompletedTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/solutionAnswerTaskFragment"
+        android:name="com.example.appforstudents.Presentation.View.SolutionAnswerTaskFragment"
+        android:label="fragment_solution_answer_task"
+        tools:layout="@layout/fragment_solution_answer_task" >
+        <action
+            android:id="@+id/action_solutionAnswerTaskFragment_to_tasksListFragment"
+            app:destination="@id/tasksListFragment" />
+        <action
+            android:id="@+id/action_solutionAnswerTaskFragment_to_completedTasksListFragment"
+            app:destination="@id/completedTasksListFragment" />
+        <action
+            android:id="@+id/action_solutionAnswerTaskFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.example.appforstudents.Presentation.View.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_galleryFragment_to_solutionAnswerTaskFragment"
+            app:destination="@id/solutionAnswerTaskFragment" />
+        <action
+            android:id="@+id/action_galleryFragment_to_solutionTestFragment"
+            app:destination="@id/solutionTestFragment" />
+        <action
+            android:id="@+id/action_galleryFragment_to_reviewCompletedTaskFragment"
+            app:destination="@id/reviewCompletedTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/solutionTestFragment"
+        android:name="com.example.appforstudents.Presentation.View.SolutionTestFragment"
+        android:label="fragment_solution_test"
+        tools:layout="@layout/fragment_solution_test" >
+        <action
+            android:id="@+id/action_solutionTestFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment" />
+        <action
+            android:id="@+id/action_solutionTestFragment_to_tasksListFragment"
+            app:destination="@id/tasksListFragment" />
+        <action
+            android:id="@+id/action_solutionTestFragment_to_completedTasksListFragment"
+            app:destination="@id/completedTasksListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewCompletedTaskFragment"
+        android:name="com.example.appforstudents.Presentation.View.ReviewCompletedTaskFragment"
+        android:label="fragment_review_completed_task"
+        tools:layout="@layout/fragment_review_completed_task" >
+        <action
+            android:id="@+id/action_reviewCompletedTaskFragment_to_completedTasksListFragment"
+            app:destination="@id/completedTasksListFragment" />
+        <action
+            android:id="@+id/action_reviewCompletedTaskFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment" />
+    </fragment>
+</navigation>

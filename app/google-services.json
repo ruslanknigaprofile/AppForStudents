@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "248775563187",
+    "firebase_url": "https://educationapp-d7689-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "educationapp-d7689",
+    "storage_bucket": "educationapp-d7689.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248775563187:android:b18f722ace768e4482ddc6",
+        "android_client_info": {
+          "package_name": "com.example.appforstudents"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248775563187-o64q6q469sr2a77udj474dvr5omq8odq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqIjW74CwISU6-UJfSv9iAjbLkyukfOEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248775563187-o64q6q469sr2a77udj474dvr5omq8odq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:248775563187:android:792816bd62934a1b82ddc6",
+        "android_client_info": {
+          "package_name": "com.example.appforteacher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "248775563187-o64q6q469sr2a77udj474dvr5omq8odq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqIjW74CwISU6-UJfSv9iAjbLkyukfOEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "248775563187-o64q6q469sr2a77udj474dvr5omq8odq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

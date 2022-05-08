@@ -11,4 +11,5 @@ data class Task(
     val checkBoolean: ArrayList<String> = arrayListOf(),
     val listImageUrl: ArrayList<String> = arrayListOf(),
     val date: LocalDate = LocalDate.now(),
-    val teacherNames: String = "")
+    val teacherNames: String = "",
+    val teacherId: String = "")

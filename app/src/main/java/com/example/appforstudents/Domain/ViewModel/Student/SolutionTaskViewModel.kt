@@ -10,7 +10,7 @@ import com.example.appforstudents.Model.CompletedTask
 import com.example.appforstudents.Model.Student
 import com.example.appforstudents.Model.Task
 import com.example.appforstudents.Presentation.Adapter.GalleryAdapter
-import com.example.appforstudents.Presentation.Adapter.TestAdapter
+import com.example.appforstudents.Presentation.Adapter.Student.TestAdapter
 import com.example.appforstudents.Repositories.ConectorDB
 
 class SolutionTaskViewModel(application: Application, val mainModel: MainViewModelForStudent) : AndroidViewModel(application) {

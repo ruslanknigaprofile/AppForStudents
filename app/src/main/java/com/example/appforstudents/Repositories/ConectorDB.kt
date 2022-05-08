@@ -45,7 +45,7 @@ class ConectorDB {
         })
     }
 
-    fun readTasksList(function: () -> Unit, tasksList: MutableLiveData<ArrayList<Task>>, completedTasks: MutableLiveData<ArrayList<CompletedTask>>){
+    fun readTasksListByCompletedTask(function: () -> Unit, tasksList: MutableLiveData<ArrayList<Task>>, completedTasks: MutableLiveData<ArrayList<CompletedTask>>){
         mDataBaseInstance.getReference("Task").addValueEventListener( object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 tasksList.value = arrayListOf()
@@ -69,6 +69,23 @@ class ConectorDB {
                 function()
             }
 
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    fun readTasksListByTeacherId(function: () -> Unit, tasksList: MutableLiveData<ArrayList<Task>>, teacherId: String){
+        mDataBaseInstance.getReference("Task").addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                tasksList.value = arrayListOf()
+                for(ds in snapshot.children){
+                    val task = ds.getValue(Task::class.java) as Task
+                    if(task.teacherId == teacherId){
+                        tasksList.value?.add(task)
+                    }
+                }
+                function()
+            }
             override fun onCancelled(error: DatabaseError) {
             }
         })

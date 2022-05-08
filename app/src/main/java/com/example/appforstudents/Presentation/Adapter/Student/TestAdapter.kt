@@ -1,4 +1,4 @@
-package com.example.appforstudents.Presentation.Adapter
+package com.example.appforstudents.Presentation.Adapter.Student
 
 import android.view.LayoutInflater
 import android.view.View
@@ -20,7 +20,7 @@ class TestAdapter(val vm: SolutionTaskViewModel): RecyclerView.Adapter<TestAdapt
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.test_item, parent, false)
-        return TestAdapter.TaskHolder(view)
+        return TaskHolder(view)
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFECB3"
+    tools:context=".Presentation.View.Teacher.CreateTestFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:isScrollContainer="true"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/krugliye_ugli">
+        <EditText
+            android:id="@+id/taskBody"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|left"
+            android:hint="Напишите задачу"
+            android:inputType="textLongMessage|textAutoCorrect|textMultiLine"
+            android:maxLines="6"
+            android:minHeight="48dp"
+            android:minLines="1"
+            android:scrollbars="vertical"
+            android:textSize="22sp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/typeTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Тип задания:"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:layout_centerVertical="true"/>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/switchType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/typeTasks"
+                android:contentDescription="Task Type"
+                android:minHeight="48dp"
+                android:spinnerMode="dropdown"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="22sp"
+                android:entries="@array/taskType"/>
+        </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:scrollbars="vertical">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewTest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <ImageView
+                    android:id="@+id/addTestAnswer"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/ic_baseline_add_box_24" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/krugliye_ugli">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/addImageSting">
+
+                <TextView
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Добавьте изображения с теоретической информацией" />
+
+                <ImageView
+                    android:id="@+id/addImage"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ic_baseline_playlist_add_check_24" />
+            </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_gallery"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_below="@+id/addImageSting"/>
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/giveSolution"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/krugliye_ugli"
+            android:textColor="@color/black"
+            android:text="Опубликовать задание" />
+
+    </LinearLayout>
+</ScrollView>

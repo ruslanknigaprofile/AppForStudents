@@ -1,4 +1,4 @@
-package com.example.appforstudents.Presentation.Adapter
+package com.example.appforstudents.Presentation.Adapter.Student
 
 import android.os.Bundle
 import android.view.LayoutInflater

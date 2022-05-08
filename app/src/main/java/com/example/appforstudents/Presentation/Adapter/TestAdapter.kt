@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appforstudents.Domain.ViewModel.ViewModel
+import com.example.appforstudents.Domain.ViewModel.Student.SolutionTaskViewModel
 import com.example.appforstudents.R
 
-class TestAdapter(val vm: ViewModel): RecyclerView.Adapter<TestAdapter.TaskHolder>() {
+class TestAdapter(val vm: SolutionTaskViewModel): RecyclerView.Adapter<TestAdapter.TaskHolder>() {
 
     class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val checkBox = itemView.findViewById<CheckBox>(R.id.answerCheckBox)
@@ -24,7 +24,8 @@ class TestAdapter(val vm: ViewModel): RecyclerView.Adapter<TestAdapter.TaskHolde
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
-        holder.textView.text = vm.tasksList.value?.get(vm.possitionSolutionTask.value!!)?.listAnswers?.get(position)
+
+        holder.textView.text = vm.task.value?.listAnswers?.get(position)
 
         holder.itemView.setOnClickListener {
             holder.checkBox.isChecked = !holder.checkBox.isChecked
@@ -34,6 +35,6 @@ class TestAdapter(val vm: ViewModel): RecyclerView.Adapter<TestAdapter.TaskHolde
     }
 
     override fun getItemCount(): Int {
-        return vm.tasksList.value?.get(vm.possitionSolutionTask.value!!)?.listAnswers?.size ?: 0
+        return vm.task.value?.listAnswers?.size ?: 0
     }
 }

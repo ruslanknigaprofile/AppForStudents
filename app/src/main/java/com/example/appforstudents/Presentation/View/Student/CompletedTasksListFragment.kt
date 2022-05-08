@@ -1,4 +1,4 @@
-package com.example.appforstudents.Presentation.View
+package com.example.appforstudents.Presentation.View.Student
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,18 +8,29 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appforstudents.Domain.ViewModel.ViewModel
+import com.example.appforstudents.Domain.ViewModel.Student.CompletedTasksListViewFactory
+import com.example.appforstudents.Domain.ViewModel.Student.CompletedTasksListViewModel
+import com.example.appforstudents.Domain.ViewModel.Student.MainViewModelForStudent
 import com.example.appforstudents.R
 
 class CompletedTasksListFragment : Fragment() {
 
-    private lateinit var vm: ViewModel
+    private lateinit var vm: CompletedTasksListViewModel
+    private lateinit var mainView: MainViewModelForStudent
 
     var recyclerView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vm = ViewModelProvider(requireActivity()).get(ViewModel::class.java)
+
+        mainView = ViewModelProvider(requireActivity()).get(MainViewModelForStudent::class.java)
+        vm = ViewModelProvider(requireActivity(), CompletedTasksListViewFactory(
+            requireActivity().application,
+            mainView
+        )
+        ).get(CompletedTasksListViewModel::class.java)
+
+        vm.getCompletedTasks()
     }
 
     override fun onCreateView(
@@ -38,9 +49,11 @@ class CompletedTasksListFragment : Fragment() {
         recyclerView = view.findViewById(R.id.completedTasksList)
         recyclerView!!.layoutManager = LinearLayoutManager(context)
 
-        vm.setCompletedTasksListAdapter()
-        recyclerView?.adapter = vm.completedTasksListAdapter.value
-
-
+        vm.completedTasksListAdapter.observe(requireActivity()){
+            recyclerView!!.adapter = it
+        }
+        vm.completedTasksList.observe(requireActivity()){
+            vm.setCompletedTasksListAdapter()
+        }
     }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/TasksMenu"
+        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:title="Список Заданий"
+        app:cnb_iconColor="#3E3B1D"/>
+
+    <item
+        android:id="@+id/AddTask"
+        android:icon="@drawable/ic_baseline_playlist_add_check_24"
+        android:title="Добавить задание"
+        app:cnb_iconColor="#3E3B1D"/>
+
+</menu>

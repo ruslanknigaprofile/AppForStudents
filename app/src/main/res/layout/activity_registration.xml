@@ -4,23 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentation.View.RegistrationActivity"
-    android:gravity="center">
+    android:background="#40E1F5FE"
+    android:gravity="center"
+    tools:context=".Presentation.View.RegistrationActivity">
 
     <LinearLayout
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:gravity="center">
+
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/registationView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="230dp"
         android:orientation="vertical"
         android:padding="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Введите своё имя и фамилию"
             android:gravity="center"
+            android:text="Введите своё имя и фамилию"
             android:textColor="@color/black"
-            android:textSize="21sp"/>
+            android:textSize="21sp" />
 
         <EditText
             android:id="@+id/first_name"
@@ -36,11 +53,37 @@
             android:hint="Фамилия"
             android:minHeight="48dp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Позиция:"
+                android:textSize="21sp" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/positionSpiner"
+                android:minHeight="48dp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/verificationCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Код"
+            android:minHeight="48dp" />
+
         <Button
             android:id="@+id/registration_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Войти"/>
+            android:text="Войти" />
 
     </LinearLayout>
 

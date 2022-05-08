@@ -1,23 +1,25 @@
 package com.example.appforstudents.Presentation.Adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appforstudents.Domain.ViewModel.ViewModel
+import com.example.appforstudents.Domain.ViewModel.Student.TasksListViewModel
 import com.example.appforstudents.R
 
-class TasksListAdapter(val vm: ViewModel) : RecyclerView.Adapter<TasksListAdapter.TaskHolder>() {
+class TasksListAdapter(val vm: TasksListViewModel) : RecyclerView.Adapter<TasksListAdapter.TaskHolder>() {
 
     class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val taskTypeIcon =itemView.findViewById<ImageView>(R.id.taskTypeIcon)
         val taskType =itemView.findViewById<TextView>(R.id.taskType)
+        val teacherString = itemView.findViewById<TextView>(R.id.teacher_string)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item_for_student, parent, false)
         return TaskHolder(view)
     }
 
@@ -31,16 +33,21 @@ class TasksListAdapter(val vm: ViewModel) : RecyclerView.Adapter<TasksListAdapte
             holder.taskType.text = "Задача"
         }
 
+        val teacherNamesAndDate = "Дано: " + vm.tasksList.value!!.get(position).teacherNames + vm.tasksList.value!!.get(position).date
+        holder.teacherString.text = teacherNamesAndDate
+
         holder.itemView.setOnClickListener{
             if (vm.tasksList.value!!.get(position).typeTask == "Test"){
-                vm.possitionSolutionTask.value = position
-                vm.disposeSolutionTask()
-                vm.replace("SolutionTestFragment")
+                val bundle = Bundle()
+                bundle.putString("positionSolutionTestTask", vm.tasksList.value!!.get(position).id)
+
+                vm.replace("SolutionTestFragment", bundle)
             }
             else if(vm.tasksList.value!!.get(position).typeTask == "Answer"){
-                vm.possitionSolutionTask.value = position
-                vm.disposeSolutionTask()
-                vm.replace("SolutionAnswerTaskFragment")
+                val bundle = Bundle()
+                bundle.putString("positionSolutionAnswerTask", vm.tasksList.value!!.get(position).id)
+
+                vm.replace("SolutionAnswerTaskFragment", bundle)
             }
         }
     }

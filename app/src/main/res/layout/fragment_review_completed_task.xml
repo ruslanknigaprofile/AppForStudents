@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentation.View.ReviewCompletedTaskFragment"
+    tools:context=".Presentation.View.Student.ReviewCompletedTaskFragment"
     android:orientation="vertical"
     android:padding="20dp"
     android:id="@+id/background_image_view">

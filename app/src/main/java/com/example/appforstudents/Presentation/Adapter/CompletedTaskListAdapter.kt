@@ -1,15 +1,16 @@
 package com.example.appforstudents.Presentation.Adapter
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appforstudents.Domain.ViewModel.ViewModel
+import com.example.appforstudents.Domain.ViewModel.Student.CompletedTasksListViewModel
 import com.example.appforstudents.R
 
-class CompletedTaskListAdapter(val vm: ViewModel) : RecyclerView.Adapter<CompletedTaskListAdapter.TaskHolder>() {
+class CompletedTaskListAdapter(val vm: CompletedTasksListViewModel) : RecyclerView.Adapter<CompletedTaskListAdapter.TaskHolder>() {
 
     class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val taskTypeIcon =itemView.findViewById<ImageView>(R.id.taskTypeIcon)
@@ -19,40 +20,41 @@ class CompletedTaskListAdapter(val vm: ViewModel) : RecyclerView.Adapter<Complet
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item_for_student, parent, false)
         return TaskHolder(view)
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
-        val completedTask = vm.student.value!!.completedTask
+        val completedTask = vm.completedTasksList.value!!
 
-        if (completedTask.task.get(position).typeTask == "Test"){
+        if (completedTask.get(position).task.typeTask == "Test"){
             holder.taskTypeIcon.setImageResource(R.drawable.test_icon)
             holder.taskType.text = "Тест"
         }
-        else if(completedTask.task.get(position).typeTask == "Answer"){
+        else if(completedTask.get(position).task.typeTask == "Answer"){
             holder.taskTypeIcon.setImageResource(R.drawable.task_icon)
             holder.taskType.text = "Задача"
         }
 
-        if (completedTask.asses.get(position)){
+        if (completedTask.get(position).asses){
             holder.taskMarker.setImageResource(R.drawable.task_marker_asses)
             holder.asses.text = "Сдан"
-        } else if(!completedTask.asses.get(position)){
+        } else if(!completedTask.get(position).asses){
             holder.taskMarker.setImageResource(R.drawable.task_marker_not_asses)
             holder.asses.text = "Не сдан"
         }
 
         holder.itemView.setOnClickListener {
-            vm.possitionReviewCompletedTask.value = position
-            vm.replace("ReviewCompletedTaskFragment")
-            vm.disposeSolutionTask()
+            val bundle = Bundle()
+            bundle.putString("positionReviewCompletedTask", position.toString())
+
+            vm.replace("ReviewCompletedTaskFragment", bundle)
         }
     }
 
     override fun getItemCount(): Int {
         if (vm.completedTasksList.value != null)
-            return vm.student.value!!.completedTask.task.size
+            return vm.completedTasksList.value!!.size
         else
             return 0
     }

@@ -4,24 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentation.View.MainActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/topBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:theme="@style/Theme.AppForStudents">
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            style="@style/Theme.AppForStudents"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:menu="@menu/top_menu"
-            app:navigationIcon="@drawable/ic_baseline_contacts_24"
-            app:title="App For Students"
-            android:theme="@style/Theme.AppForStudents"/>
-    </com.google.android.material.appbar.AppBarLayout>
+    tools:context=".Presentation.View.Student.MainActivityStudent">
 
     <fragment
         android:id="@+id/fragment_place"
@@ -29,10 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bNav"
-        android:layout_below="@+id/topBar"
         android:scrollbars="vertical"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_graph" />
+        app:navGraph="@navigation/nav_graph_student" />
 
     <com.ismaeldivita.chipnavigation.ChipNavigationBar
         android:id="@+id/bNav"
@@ -42,7 +24,7 @@
         android:background="@color/white"
         android:elevation="16dp"
         android:foregroundGravity="center"
-        app:cnb_menuResource="@menu/bottom_menu"
+        app:cnb_menuResource="@menu/bottom_menu_student"
         android:theme="@style/Theme.AppForStudents"/>
 
 

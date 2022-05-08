@@ -8,6 +8,8 @@
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/drawable/krugliye_ugli.xml" value="0.1755" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/font/main_font.xml" value="0.284375" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/activity_main_for_student.xml" value="0.11302083333333333" />
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/activity_main_teacher.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/activity_registration.xml" value="0.2078804347826087" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/custom_row.xml" value="0.2078804347826087" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_completed_tasks_list.xml" value="0.2078804347826087" />
@@ -16,10 +18,13 @@
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_solution_answer_task.xml" value="0.2078804347826087" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_solution_test.xml" value="0.2078804347826087" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_tasks_list.xml" value="0.2078804347826087" />
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_tasks_list2.xml" value="0.22826086956521738" />
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_tasks_list_for_studetn.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/gallery_item.xml" value="0.2078804347826087" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/task_item.xml" value="0.264" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/test_item.xml" value="0.2078804347826087" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/menu/bottom_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/menu/bottom_menu_teacher.xml" value="0.25416666666666665" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/menu/top_menu.xml" value="0.25416666666666665" />
       </map>
     </option>

@@ -14,4 +14,11 @@
         <item name="fontFamily">@font/font_main </item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="Theme.AppForStudents.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.AppForStudents.AppBarOverlay"
+        parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.AppForStudents.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

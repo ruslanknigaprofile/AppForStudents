@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/tasksListFragment"
-        android:name="com.example.appforstudents.Presentation.View.TasksListFragment"
+        android:name="com.example.appforstudents.Presentation.View.Student.TasksListFragment"
         android:label="fragment_tasks_list"
-        tools:layout="@layout/fragment_tasks_list" >
+        tools:layout="@layout/fragment_tasks_list_for_studetn" >
         <action
             android:id="@+id/action_tasksListFragment_to_completedTasksListFragment"
             app:destination="@id/completedTasksListFragment" />
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/completedTasksListFragment"
-        android:name="com.example.appforstudents.Presentation.View.CompletedTasksListFragment"
+        android:name="com.example.appforstudents.Presentation.View.Student.CompletedTasksListFragment"
         android:label="fragment_completed_tasks_list"
         tools:layout="@layout/fragment_completed_tasks_list" >
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/solutionAnswerTaskFragment"
-        android:name="com.example.appforstudents.Presentation.View.SolutionAnswerTaskFragment"
+        android:name="com.example.appforstudents.Presentation.View.Student.SolutionAnswerTaskFragment"
         android:label="fragment_solution_answer_task"
         tools:layout="@layout/fragment_solution_answer_task" >
         <action
@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_solutionAnswerTaskFragment_to_galleryFragment"
             app:destination="@id/galleryFragment" />
+        <argument
+            android:name="positionSolutionAnswerTask"
+            android:defaultValue="id" />
     </fragment>
     <fragment
         android:id="@+id/galleryFragment"
@@ -61,10 +64,13 @@
         <action
             android:id="@+id/action_galleryFragment_to_reviewCompletedTaskFragment"
             app:destination="@id/reviewCompletedTaskFragment" />
+        <argument
+            android:name="UriImage"
+            android:defaultValue="Uri" />
     </fragment>
     <fragment
         android:id="@+id/solutionTestFragment"
-        android:name="com.example.appforstudents.Presentation.View.SolutionTestFragment"
+        android:name="com.example.appforstudents.Presentation.View.Student.SolutionTestFragment"
         android:label="fragment_solution_test"
         tools:layout="@layout/fragment_solution_test" >
         <action
@@ -76,10 +82,13 @@
         <action
             android:id="@+id/action_solutionTestFragment_to_completedTasksListFragment"
             app:destination="@id/completedTasksListFragment" />
+        <argument
+            android:name="positionSolutionTestTask"
+            android:defaultValue="id" />
     </fragment>
     <fragment
         android:id="@+id/reviewCompletedTaskFragment"
-        android:name="com.example.appforstudents.Presentation.View.ReviewCompletedTaskFragment"
+        android:name="com.example.appforstudents.Presentation.View.Student.ReviewCompletedTaskFragment"
         android:label="fragment_review_completed_task"
         tools:layout="@layout/fragment_review_completed_task" >
         <action
@@ -88,5 +97,8 @@
         <action
             android:id="@+id/action_reviewCompletedTaskFragment_to_galleryFragment"
             app:destination="@id/galleryFragment" />
+        <argument
+            android:name="positionReviewCompletedTask"
+            android:defaultValue="position" />
     </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.appforstudents.Presentation.View
+package com.example.appforstudents.Presentation.View.Student
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,22 +7,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.appforstudents.R
-import com.example.appforstudents.Domain.ViewModel.ViewModel
-import com.google.android.material.appbar.MaterialToolbar
+import com.example.appforstudents.Domain.ViewModel.Student.MainViewModelForStudent
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
-class MainActivity : AppCompatActivity() {
+class MainActivityStudent : AppCompatActivity() {
 
-    private lateinit var vm: ViewModel
+    private lateinit var vm: MainViewModelForStudent
 
-    var topMenu: MaterialToolbar? = null
     private lateinit var botomBar: ChipNavigationBar
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        vm = ViewModelProvider(this).get(ViewModel::class.java)
+        setContentView(R.layout.activity_main_for_student)
+        vm = ViewModelProvider(this).get(MainViewModelForStudent::class.java)
         navController = Navigation.findNavController(this, R.id.fragment_place)
         vm.setNavigation(navController)
 
@@ -30,17 +28,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun init(){
-        topMenu = findViewById(R.id.topAppBar)
-
         botomBar = findViewById(R.id.bNav)
         botomBar.setItemSelected(R.id.TasksMenu)
         botomBar.setOnItemSelectedListener {
             when(it){
                 R.id.TasksMenu ->{
-                    vm.replace("TasksListFragment")
+                    vm.replace("TasksListFragment",null)
                 }
                 R.id.CompletedTasksMenu ->{
-                    vm.replace("CompletedTasksListFragment")
+                    vm.replace("CompletedTasksListFragment",null)
                 }
             }
         }
@@ -49,27 +45,19 @@ class MainActivity : AppCompatActivity() {
             when(it){
                 "TasksListFragment" ->{
                     botomBar.isVisible = true
-                    topMenu?.isVisible = true
-                    topMenu?.title = "Невыплненные задания"
-
                 }
                 "CompletedTasksListFragment" ->{
                     botomBar.setItemSelected(R.id.CompletedTasksMenu)
                     botomBar.isVisible = true
-                    topMenu?.isVisible = true
-                    topMenu?.title = "Выполненные задания"
                 }
                 "SolutionAnswerTaskFragment" ->{
                     botomBar.isVisible = false
-                    topMenu?.isVisible = false
                 }
                 "SolutionTestFragment" ->{
                     botomBar.isVisible = false
-                    topMenu?.isVisible = false
                 }
                 "ReviewCompletedTaskFragment" ->{
                     botomBar.isVisible = false
-                    topMenu?.isVisible = false
                 }
             }
         }
@@ -84,18 +72,18 @@ class MainActivity : AppCompatActivity() {
                 //2
             }
             "SolutionAnswerTaskFragment" ->{
-                vm.replace("TasksListFragment")
+                vm.replace("TasksListFragment",null)
             }
             "SolutionTestFragment" ->{
-                vm.replace("TasksListFragment")
+                vm.replace("TasksListFragment",null)
             }
             "GalleryFragment" ->{
-                vm.replace("SolutionAnswerTaskFragment")
-                vm.replace("SolutionTestFragment")
-                vm.replace("ReviewCompletedTaskFragment")
+                vm.replace("SolutionAnswerTaskFragment",null)
+                vm.replace("SolutionTestFragment",null)
+                vm.replace("ReviewCompletedTaskFragment",null)
             }
             "ReviewCompletedTaskFragment" ->{
-                vm.replace("CompletedTasksListFragment")
+                vm.replace("CompletedTasksListFragment",null)
             }
         }
     }

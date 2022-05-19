@@ -19,6 +19,7 @@ class ReviewTaskViewModel (application: Application, val mainModel: MainViewMode
     var studentsList = MutableLiveData<ArrayList<Student>>()
     var possitionTask = MutableLiveData<ArrayList<Int>>()
     var imagesList = MutableLiveData<ArrayList<Uri>>()
+    var studentChangeAssesListener = MutableLiveData<StudentAssesAdapter.ChangeAsses>()
 
     //Adapter
     var testAdapter = MutableLiveData<ReviewTestAdapter>()
@@ -75,11 +76,7 @@ class ReviewTaskViewModel (application: Application, val mainModel: MainViewMode
         studentsAdapter.value = StudentAssesAdapter(
             studentsList.value!!,
             possitionTask.value!!,
-            object : StudentAssesAdapter.ChangeAsses{
-                override fun changeAsses(studentId: String, taskId: String) {
-                    changeAssesInDB(studentId, taskId)
-                }
-            },
+            studentChangeAssesListener.value!!,
             mainModel
         )
     }

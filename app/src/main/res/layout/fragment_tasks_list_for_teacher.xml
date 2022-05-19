@@ -7,6 +7,14 @@
     android:background="#DCEDC8"
     android:padding="10dp">
 
+    <TextView
+        android:id="@+id/annotation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="22sp"
+        android:text="Вы пока ещё не добавили ни одного задания"
+        android:gravity="center"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksList"
         android:layout_width="match_parent"

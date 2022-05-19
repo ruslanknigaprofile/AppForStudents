@@ -143,8 +143,10 @@ class ConectorDB {
     fun readTask(taskId: String, task: MutableLiveData<Task>){
         mDataBaseInstance.getReference("Task").child(taskId).addValueEventListener( object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
-                val getTask = snapshot.getValue(Task::class.java) as Task
-                task.value = getTask
+                if (snapshot.getValue(Task::class.java) != null){
+                    val getTask = snapshot.getValue(Task::class.java) as Task
+                    task.value = getTask
+                }
             }
             override fun onCancelled(error: DatabaseError) {
             }
@@ -175,12 +177,19 @@ class ConectorDB {
     }
 
     fun getImages(task: Task, sliderImage: MutableLiveData<ArrayList<Uri>>){
-        val imagesList = arrayListOf<Uri>()
+        val imagesListData = arrayOfNulls<Uri>(10)
         for (i in task.listImageUrl) {
             REF_STORAGE_ROOT.child("folder_task_image")
                 .child(i).downloadUrl.addOnCompleteListener {
                     try {
-                        imagesList.add(it.result)
+                        val index = it.result.toString().split("%7Cindex%7C")[1].toInt()
+                        imagesListData[index] = it.result
+                        val imagesList = arrayListOf<Uri>()
+                        for (item in imagesListData){
+                            if (item != null) {
+                                imagesList.add(item)
+                            }
+                        }
                         sliderImage.value = imagesList
                     }catch (e: Exception){
                     }
@@ -191,7 +200,7 @@ class ConectorDB {
 
     private fun writeImages(task: Task): Task {
         for ((index, i) in task.listImageUrl.withIndex()){
-            task.listImageUrl[index] = "taskId("+task.id+")." + index
+            task.listImageUrl[index] = "taskId("+task.id+")|index|" + index + "|index|"
             REF_STORAGE_ROOT.child("folder_task_image")
                 .child(task.listImageUrl[index]).putFile(i.toUri())
         }
@@ -204,5 +213,9 @@ class ConectorDB {
         task.id = push.key.toString()
         val postTask: Task = writeImages(task)
         push.setValue(postTask)
+    }
+
+    fun deleteTaskInDB(id: String){
+        mDataBaseInstance.getReference("Task").child(id).removeValue()
     }
 }

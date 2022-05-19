@@ -86,7 +86,7 @@ class CreateAnswerFragment : Fragment() {
         mLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         recyclerViewGallery?.layoutManager = mLayoutManager
         recyclerViewGallery?.isVisible = false
-        vm.galleryAdapter.observe(requireActivity()) {
+        vm.galleryAdapter.observe(viewLifecycleOwner) {
             if(it != null) {
                 recyclerViewGallery?.adapter = it
                 recyclerViewGallery?.isVisible = it.itemCount >= 1
@@ -137,7 +137,6 @@ class CreateAnswerFragment : Fragment() {
         vm.task.value?.listAnswers?.clear()
         vm.task.value?.checkBoolean?.clear()
         vm.task.value?.listImageUrl?.clear()
-        vm.galleryAdapter.removeObservers(requireActivity())
         vm.galleryAdapter.value = null
     }
 }

@@ -17,6 +17,7 @@ class TasksListViewModel(application: Application, val mainModel: MainViewModelF
     var teacher = MutableLiveData(Teacher())
     var tasksList = MutableLiveData<ArrayList<Task>>()
     var dateSortList: ArrayList<String> = arrayListOf()
+    var deleteTaskListener = MutableLiveData<TasksListAdapter.DeleteTaskListener>()
 
     //Adapter
     var tasksListAdapter = MutableLiveData<GroupTasksListAdapter>()
@@ -48,7 +49,10 @@ class TasksListViewModel(application: Application, val mainModel: MainViewModelF
                 dateSortList.add(task.date)
             }
         }
-        tasksListAdapter.value = GroupTasksListAdapter(dateSortList, tasksList.value!!, mainModel)
+        tasksListAdapter.value = GroupTasksListAdapter(dateSortList, tasksList.value!!, mainModel, deleteTaskListener.value!!)
+    }
+    fun deleteTask(id: String){
+        connector.deleteTaskInDB(id)
     }
 
     //Navigation

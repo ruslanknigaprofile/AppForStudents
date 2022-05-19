@@ -13,6 +13,7 @@ import com.example.appforstudents.Presentation.Adapter.Teacher.GalleryAdapter
 import com.example.appforstudents.Presentation.Adapter.Teacher.TestAdapter
 import com.example.appforstudents.Repositories.ConectorDB
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class CreateTaskViewModel(application: Application, val mainModel: MainViewModelForTeacher) : AndroidViewModel(application) {
 
@@ -40,7 +41,7 @@ class CreateTaskViewModel(application: Application, val mainModel: MainViewModel
     }
 
     fun writeTaskInDB(){
-        task.value!!.time = LocalTime.now().toString()
+        task.value!!.time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm")).toString()
         task.value!!.teacherId = teacher.value!!.teacherId
         task.value!!.teacherNames = teacher.value!!.name
         connector.writeTaskInDB(task.value!!)

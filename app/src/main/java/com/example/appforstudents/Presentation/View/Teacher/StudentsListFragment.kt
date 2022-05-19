@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +20,7 @@ class StudentsListFragment : Fragment() {
     private lateinit var mainView: MainViewModelForTeacher
 
     var recyclerView: RecyclerView? = null
+    var annotation: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +44,7 @@ class StudentsListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        annotation = view.findViewById(R.id.annotation)
         recyclerView = view.findViewById(R.id.studentsList)
         recyclerView!!.layoutManager = LinearLayoutManager(context)
 
@@ -49,13 +53,21 @@ class StudentsListFragment : Fragment() {
     }
 
     private fun init(){
-        vm.studentsListAdapter.observe(requireActivity()){
-            recyclerView?.adapter = it
+        vm.studentsListAdapter.observe(viewLifecycleOwner){
+            if(it != null){
+                recyclerView?.adapter = it
+                if (it.itemCount > 0){
+                    annotation?.isVisible = false
+                    recyclerView?.isVisible = true
+                }else{
+                    annotation?.isVisible = true
+                    recyclerView?.isVisible = false
+                }
+            }
         }
     }
 
     private fun dispose(){
-        vm.studentsListAdapter.removeObservers(requireActivity())
         vm.studentsListAdapter.value = null
     }
 }

@@ -78,7 +78,7 @@ class CreateTestFragment : Fragment() {
 
         recyclerViewTest!!.layoutManager = LinearLayoutManager(context)
         vm.setTestAdapter()
-        vm.testAdapter.observe(requireActivity()){
+        vm.testAdapter.observe(viewLifecycleOwner){
             recyclerViewTest!!.adapter = it
         }
 
@@ -99,7 +99,7 @@ class CreateTestFragment : Fragment() {
         mLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         recyclerViewGallery?.layoutManager = mLayoutManager
         recyclerViewGallery?.isVisible = false
-        vm.galleryAdapter.observe(requireActivity()) {
+        vm.galleryAdapter.observe(viewLifecycleOwner) {
             if (it != null) {
                 recyclerViewGallery?.adapter = it
                 recyclerViewGallery?.isVisible = it.itemCount >= 1
@@ -144,12 +144,10 @@ class CreateTestFragment : Fragment() {
     }
 
     private fun dispose(){
-        vm.testAdapter.removeObservers(requireActivity())
         vm.testAdapter.value = null
         vm.task.value?.listAnswers?.clear()
         vm.task.value?.checkBoolean?.clear()
         vm.task.value?.listImageUrl?.clear()
-        vm.galleryAdapter.removeObservers(requireActivity())
         vm.galleryAdapter.value = null
     }
 }

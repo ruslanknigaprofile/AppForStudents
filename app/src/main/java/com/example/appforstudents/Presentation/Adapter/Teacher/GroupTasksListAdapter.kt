@@ -14,7 +14,7 @@ import com.example.appforstudents.Domain.ViewModel.Teacher.TasksListViewModel
 import com.example.appforstudents.Model.Task
 import com.example.appforstudents.R
 
-class GroupTasksListAdapter(val dateList: ArrayList<String>, val tasksList: ArrayList<Task>,val vm: MainViewModelForTeacher) : RecyclerView.Adapter<GroupTasksListAdapter.TaskHolder>() {
+class GroupTasksListAdapter(val dateList: ArrayList<String>, val tasksList: ArrayList<Task>,val vm: MainViewModelForTeacher, val deteteTaskListener: TasksListAdapter.DeleteTaskListener) : RecyclerView.Adapter<GroupTasksListAdapter.TaskHolder>() {
 
     class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val date = itemView.findViewById<TextView>(R.id.dateTasks)
@@ -36,7 +36,7 @@ class GroupTasksListAdapter(val dateList: ArrayList<String>, val tasksList: Arra
             }
         }
         holder.recyclerView.layoutManager = LinearLayoutManager(vm.getApplication<Application?>().applicationContext)
-        holder.recyclerView.adapter = TasksListAdapter(tasks, vm)
+        holder.recyclerView.adapter = TasksListAdapter(tasks, vm, deteteTaskListener)
     }
 
     override fun getItemCount(): Int {

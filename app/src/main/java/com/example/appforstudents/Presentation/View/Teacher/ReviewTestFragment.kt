@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appforstudents.Domain.ViewModel.Teacher.*
+import com.example.appforstudents.Presentation.Adapter.Teacher.StudentAssesAdapter
 import com.example.appforstudents.R
 
 
@@ -37,10 +38,8 @@ class ReviewTestFragment : Fragment() {
         )
         ).get(ReviewTaskViewModel::class.java)
 
-        if(arguments?.getString("taskId") == null){
-            vm.getTaskById(vm.task.value?.id!!)
-            vm.getStudentsMadeTask(vm.task.value?.id!!)
-        }else{
+        if(arguments?.getString("taskId") != null) {
+            dispose()
             vm.getTaskById(arguments?.getString("taskId").toString())
             vm.getStudentsMadeTask(arguments?.getString("taskId").toString())
         }
@@ -62,7 +61,6 @@ class ReviewTestFragment : Fragment() {
         imageView = view.findViewById(R.id.imageView)
 
 
-        dispose()
         init()
     }
 
@@ -71,9 +69,13 @@ class ReviewTestFragment : Fragment() {
             if (it != null) {
                 taskBody?.text = it.bodyTask
 
-                vm.setTestAdapter()
-                //vm.setSliderAdapter()
-                vm.getImages()
+                if (vm.testAdapter.value == null){
+                    vm.setTestAdapter()
+                }
+                val qwe = vm.galleryAdapter.value
+                if(vm.galleryAdapter.value == null){
+                    vm.getImages()
+                }
             }
         }
 
@@ -105,14 +107,22 @@ class ReviewTestFragment : Fragment() {
         vm.studentsAdapter.observe(requireActivity()){
             studentsList?.adapter = it
         }
+
+        vm.studentChangeAssesListener.value = object : StudentAssesAdapter.ChangeAsses{
+            override fun changeAsses(studentId: String, taskId: String) {
+                mainView.createSimpleDialog(requireContext(),
+                "Изменить оценивание",
+                "Вы уверены что хотите изменить оценку данного учащегося?",
+                    { vm.changeAssesInDB(studentId, taskId) })
+            }
+        }
     }
 
     private fun dispose(){
-        //vm.task.removeObservers(requireActivity())
         vm.task.value = null
-        //vm.testAdapter.removeObservers(requireActivity())
         vm.testAdapter.value = null
-        //vm.galleryAdapter.removeObservers(requireActivity())
+        vm.imagesList.value?.clear()
         vm.galleryAdapter.value = null
+        vm.studentChangeAssesListener.value = null
     }
 }

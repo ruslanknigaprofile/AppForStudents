@@ -7,6 +7,14 @@
     android:padding="10dp"
     android:background="#B2EBF2">
 
+    <TextView
+        android:id="@+id/annotation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="22sp"
+        android:text="Пока ещё нет ни одного учащегося"
+        android:gravity="center"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

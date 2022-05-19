@@ -13,12 +13,13 @@ import com.example.appforstudents.Domain.ViewModel.Teacher.TasksListViewModel
 import com.example.appforstudents.Model.Task
 import com.example.appforstudents.R
 
-class TasksListAdapter(val tasksList: ArrayList<Task>, val vm: MainViewModelForTeacher) : RecyclerView.Adapter<TasksListAdapter.TaskHolder>() {
+class TasksListAdapter(val tasksList: ArrayList<Task>, val vm: MainViewModelForTeacher, val deleteTaskListener: DeleteTaskListener) : RecyclerView.Adapter<TasksListAdapter.TaskHolder>() {
 
     class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val taskTypeIcon =itemView.findViewById<ImageView>(R.id.taskTypeIcon)
         val taskType =itemView.findViewById<TextView>(R.id.taskType)
         val dateString = itemView.findViewById<TextView>(R.id.teacher_string)
+        val deleteTask = itemView.findViewById<ImageView>(R.id.deleteTask)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
@@ -39,6 +40,10 @@ class TasksListAdapter(val tasksList: ArrayList<Task>, val vm: MainViewModelForT
 
         holder.dateString.text = "Время: " + task.time
 
+        holder.deleteTask.setOnClickListener {
+            deleteTaskListener.deleteTask(task.id)
+        }
+
         holder.itemView.setOnClickListener{
             if (task.typeTask == "Test"){
                 val bundle = Bundle()
@@ -53,6 +58,10 @@ class TasksListAdapter(val tasksList: ArrayList<Task>, val vm: MainViewModelForT
                 vm.replace("ReviewAnswerFragment", bundle)
             }
         }
+    }
+
+    interface DeleteTaskListener{
+        fun deleteTask(id: String)
     }
 
     override fun getItemCount(): Int {

@@ -56,7 +56,7 @@ class StudentFragment : Fragment() {
         graphicView = view.findViewById(R.id.graphicView)
 
         dispose()
-        vm.student.observe(requireActivity()){
+        vm.student.observe(viewLifecycleOwner){
             if (it != null){
                 init(it)
             }
@@ -105,7 +105,6 @@ class StudentFragment : Fragment() {
     }
 
     private fun dispose(){
-        vm.student.removeObservers(requireActivity())
         vm.student.value = null
     }
 }

@@ -66,7 +66,8 @@ class SolutionTestFragment : Fragment() {
         vm.task.observe(requireActivity()){
             if (it != null){
                 if (vm.galleryAdapter.value == null){
-                    vm.getImagesForReview()
+                    //vm.getImagesForReview()
+                    vm.setSliderAdapter()
                 }
 
                 taskBody?.text = vm.task.value?.bodyTask
@@ -87,7 +88,7 @@ class SolutionTestFragment : Fragment() {
         vm.galleryAdapter.observe(requireActivity()) {
             if(it != null) {
                 recyclerView?.adapter = it
-                recyclerView?.isVisible = vm.sliderImage.value!!.size >= 1
+                recyclerView?.isVisible = it.itemCount >= 1
             }
         }
 

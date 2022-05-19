@@ -1,6 +1,5 @@
 package com.example.appforstudents.Presentation.View.Teacher
 
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,13 +10,10 @@ import android.widget.AdapterView
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Spinner
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
-import androidx.appcompat.widget.AppCompatSpinner
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appforstudents.Domain.ViewModel.Teacher.CreatTaskViewFactory
@@ -28,7 +24,7 @@ import com.example.appforstudents.R
 import com.github.dhaval2404.imagepicker.ImagePicker
 
 
-class CreateTestFragment : Fragment() {
+class CreateAnswerFragment : Fragment() {
 
     private lateinit var vm: CreateTaskViewModel
     private lateinit var mainView: MainViewModelForTeacher
@@ -37,60 +33,51 @@ class CreateTestFragment : Fragment() {
     var taskBody: EditText? = null
     var addImage: ImageView? = null
     var recyclerViewGallery: RecyclerView? = null
-    var addTestAnswer: ImageView? = null
-    var recyclerViewTest: RecyclerView? = null
+    var editAnswer: EditText? = null
     var giveTest: AppCompatButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mainView = ViewModelProvider(requireActivity()).get(MainViewModelForTeacher::class.java)
-        vm = ViewModelProvider(requireActivity(), CreatTaskViewFactory(
-            requireActivity().application,
-            mainView
-        )
+        vm = ViewModelProvider(
+            requireActivity(), CreatTaskViewFactory(
+                requireActivity().application,
+                mainView
+            )
         ).get(CreateTaskViewModel::class.java)
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_create_test, container, false)
+        return inflater.inflate(R.layout.fragment_create_answer, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         recyclerViewGallery = view.findViewById(R.id.recyclerview_gallery)
         taskBody = view.findViewById(R.id.taskBody)
         addImage = view.findViewById(R.id.addImage)
         switch = view.findViewById(R.id.switchType)
-        recyclerViewTest = view.findViewById(R.id.recyclerViewTest)
-        addTestAnswer = view.findViewById(R.id.addTestAnswer)
+        editAnswer = view.findViewById(R.id.editAnswer)
         giveTest = view.findViewById(R.id.giveTest)
 
         dispose()
         init()
     }
 
-    private fun init(){
-
-        recyclerViewTest!!.layoutManager = LinearLayoutManager(context)
-        vm.setTestAdapter()
-        vm.testAdapter.observe(requireActivity()){
-            recyclerViewTest!!.adapter = it
-        }
-
-        addTestAnswer!!.setOnClickListener {
-            vm.addAnswerTest()
-        }
-
+    private fun init() {
         addImage!!.setOnClickListener {
             ImagePicker.with(this)
-                .crop()	    			//Crop image(Optional), Check Customization for more option
-                .compress(1024)			//Final image size will be less than 1 MB(Optional)
-                .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
+                .crop()                    //Crop image(Optional), Check Customization for more option
+                .compress(1024)            //Final image size will be less than 1 MB(Optional)
+                .maxResultSize(
+                    1080,
+                    1080
+                )    //Final image resolution will be less than 1080 x 1080(Optional)
                 .start()
         }
 
@@ -100,7 +87,7 @@ class CreateTestFragment : Fragment() {
         recyclerViewGallery?.layoutManager = mLayoutManager
         recyclerViewGallery?.isVisible = false
         vm.galleryAdapter.observe(requireActivity()) {
-            if (it != null) {
+            if(it != null) {
                 recyclerViewGallery?.adapter = it
                 recyclerViewGallery?.isVisible = it.itemCount >= 1
             }
@@ -115,37 +102,38 @@ class CreateTestFragment : Fragment() {
             )
         }
 
-        switch?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        switch?.setSelection(1)
+        switch?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 val position = resources.getStringArray(R.array.taskType)
-                if (position.get(p2) == "Задача"){
-                    vm.replace("CreateAnswerFragment",null)
+                if (position.get(p2) == "Тест") {
+                    vm.replace("CreateTestFragment", null)
                 }
             }
+
             override fun onNothingSelected(p0: AdapterView<*>?) {
             }
         }
     }
 
-    private fun postTest(){
-        vm.saveDataTest()
+    private fun postTest() {
+        vm.task.value?.listAnswers?.add(editAnswer?.text.toString())
+        vm.task.value?.checkBoolean?.add(true.toString())
         vm.task.value?.bodyTask = taskBody?.text.toString()
-        vm.task.value?.typeTask = "Test"
+        vm.task.value?.typeTask = "Answer"
         vm.writeTaskInDB()
         vm.replace("TasksListFragment", null)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == ImagePicker.REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null){
+        if (requestCode == ImagePicker.REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK && data != null) {
             vm.task.value?.listImageUrl?.add(data.data.toString())
             vm.setGalleryAdapter()
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
 
-    private fun dispose(){
-        vm.testAdapter.removeObservers(requireActivity())
-        vm.testAdapter.value = null
+    fun dispose(){
         vm.task.value?.listAnswers?.clear()
         vm.task.value?.checkBoolean?.clear()
         vm.task.value?.listImageUrl?.clear()

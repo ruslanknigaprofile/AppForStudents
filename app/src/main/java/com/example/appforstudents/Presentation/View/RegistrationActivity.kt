@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.appforstudents.Domain.ViewModel.RegistrationViewModel
 import com.example.appforstudents.Presentation.View.Student.MainActivityStudent
+import com.example.appforstudents.Presentation.View.Teacher.MainActivityTeacher
 import com.example.appforstudents.R
 
 class RegistrationActivity : AppCompatActivity() {
@@ -90,7 +91,7 @@ class RegistrationActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivityStudent::class.java)
             startActivity(intent)
         } else if(vm.position.value == "Teacher"){
-            val intent = Intent(this, MainActivityStudent::class.java)
+            val intent = Intent(this, MainActivityTeacher::class.java)
             startActivity(intent)
         }
 

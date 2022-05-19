@@ -19,7 +19,7 @@ class TestAdapter(val vm: SolutionTaskViewModel): RecyclerView.Adapter<TestAdapt
     var holders: ArrayList<TaskHolder> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.test_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.test_item_student, parent, false)
         return TaskHolder(view)
     }
 

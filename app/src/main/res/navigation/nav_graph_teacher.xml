@@ -8,5 +8,99 @@
         android:id="@+id/tasksListFragment2"
         android:name="com.example.appforstudents.Presentation.View.Teacher.TasksListFragment"
         android:label="fragment_tasks_list_for_teacher"
-        tools:layout="@layout/fragment_tasks_list_for_teacher" />
+        tools:layout="@layout/fragment_tasks_list_for_teacher" >
+        <action
+            android:id="@+id/action_tasksListFragment2_to_createTestFragment"
+            app:destination="@id/createTestFragment" />
+        <action
+            android:id="@+id/action_tasksListFragment2_to_createAnswerFragment"
+            app:destination="@id/createAnswerFragment" />
+        <action
+            android:id="@+id/action_tasksListFragment2_to_studentsListFragment"
+            app:destination="@id/studentsListFragment" />
+        <action
+            android:id="@+id/action_tasksListFragment2_to_reviewTestFragment"
+            app:destination="@id/reviewTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createTestFragment"
+        android:name="com.example.appforstudents.Presentation.View.Teacher.CreateTestFragment"
+        android:label="fragment_create_test"
+        tools:layout="@layout/fragment_create_test" >
+        <action
+            android:id="@+id/action_createTestFragment_to_tasksListFragment2"
+            app:destination="@id/tasksListFragment2" />
+        <action
+            android:id="@+id/action_createTestFragment_to_createAnswerFragment"
+            app:destination="@id/createAnswerFragment" />
+        <action
+            android:id="@+id/action_createTestFragment_to_studentsListFragment"
+            app:destination="@id/studentsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryFragment2"
+        android:name="com.example.appforstudents.Presentation.View.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" >
+        <argument
+            android:name="UriImage"
+            android:defaultValue="Uri" />
+        <action
+            android:id="@+id/action_galleryFragment2_to_reviewTestFragment"
+            app:destination="@id/reviewTestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createAnswerFragment"
+        android:name="com.example.appforstudents.Presentation.View.Teacher.CreateAnswerFragment"
+        android:label="fragment_create_answer"
+        tools:layout="@layout/fragment_create_answer" >
+        <action
+            android:id="@+id/action_createAnswerFragment_to_tasksListFragment2"
+            app:destination="@id/tasksListFragment2" />
+        <action
+            android:id="@+id/action_createAnswerFragment_to_createTestFragment"
+            app:destination="@id/createTestFragment" />
+        <action
+            android:id="@+id/action_createAnswerFragment_to_studentsListFragment"
+            app:destination="@id/studentsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentsListFragment"
+        android:name="com.example.appforstudents.Presentation.View.Teacher.StudentsListFragment"
+        android:label="fragment_students_list"
+        tools:layout="@layout/fragment_students_list" >
+        <action
+            android:id="@+id/action_studentsListFragment_to_tasksListFragment2"
+            app:destination="@id/tasksListFragment2" />
+        <action
+            android:id="@+id/action_studentsListFragment_to_createTestFragment"
+            app:destination="@id/createTestFragment" />
+        <action
+            android:id="@+id/action_studentsListFragment_to_studentFragment"
+            app:destination="@id/studentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentFragment"
+        android:name="com.example.appforstudents.Presentation.View.Teacher.StudentFragment"
+        android:label="fragment_student"
+        tools:layout="@layout/fragment_student" >
+        <action
+            android:id="@+id/action_studentFragment_to_studentsListFragment"
+            app:destination="@id/studentsListFragment" />
+        <argument
+            android:name="studentId"
+            android:defaultValue="id" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewTestFragment"
+        android:name="com.example.appforstudents.Presentation.View.Teacher.ReviewTestFragment"
+        android:label="fragment_review_test"
+        tools:layout="@layout/fragment_review_test" >
+        <action
+            android:id="@+id/action_reviewTestFragment_to_tasksListFragment2"
+            app:destination="@id/tasksListFragment2" />
+        <action
+            android:id="@+id/action_reviewTestFragment_to_galleryFragment2"
+            app:destination="@id/galleryFragment2" />
+    </fragment>
 </navigation>

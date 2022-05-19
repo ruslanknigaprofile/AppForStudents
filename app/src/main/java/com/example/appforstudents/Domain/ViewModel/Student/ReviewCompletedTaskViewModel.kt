@@ -8,7 +8,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.appforstudents.Model.CompletedTask
 import com.example.appforstudents.Model.Student
-import com.example.appforstudents.Presentation.Adapter.GalleryAdapter
+import com.example.appforstudents.Presentation.Adapter.Student.GalleryAdapter
 import com.example.appforstudents.Repositories.ConectorDB
 
 class ReviewCompletedTaskViewModel(application: Application, val mainModel: MainViewModelForStudent) : AndroidViewModel(application) {
@@ -28,7 +28,7 @@ class ReviewCompletedTaskViewModel(application: Application, val mainModel: Main
         getSharedPreferences()
     }
 
-    //setModel
+    //getModel
     private fun getSharedPreferences(){
         val sharedPreferences = getApplication<Application>().baseContext.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         if(sharedPreferences.getString("id", null) != null){
@@ -38,14 +38,15 @@ class ReviewCompletedTaskViewModel(application: Application, val mainModel: Main
     fun getCompletedTasks(){
         connector.readCompletedTasks(student.value!!.studentId, completedTasksList)
     }
+
     fun getImagesForReview(){
         sliderImage.value?.clear()
-        connector.getImages(completedTasksList.value!!.get(position.value!!).task, { setSliderAdapter() }, sliderImage)
+        connector.getImages(completedTasksList.value!!.get(position.value!!).task, sliderImage)
     }
 
-    //Adapter
+    //setAdapter
     private fun setSliderAdapter(){
-        galleryAdapter.value = GalleryAdapter(sliderImage.value!!, getApplication<Application>().baseContext, mainModel)
+        //galleryAdapter.value = GalleryAdapter(sliderImage.value!!, getApplication<Application>().baseContext, mainModel)
     }
 
     //Navigation

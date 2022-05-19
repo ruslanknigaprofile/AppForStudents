@@ -1,4 +1,4 @@
-package com.example.appforstudents.Presentation.Adapter
+package com.example.appforstudents.Presentation.Adapter.Teacher
 
 import android.content.Context
 import android.net.Uri
@@ -7,12 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.appforstudents.Domain.ViewModel.Student.MainViewModelForStudent
+import com.example.appforstudents.Domain.ViewModel.Teacher.MainViewModelForTeacher
 import com.example.appforstudents.R
 
-class GalleryAdapter(val sliderImage: ArrayList<Uri>,val context: Context, val vm: MainViewModelForStudent): RecyclerView.Adapter<GalleryAdapter.TaskHolder>() {
+class GalleryAdapter(val sliderImage: ArrayList<Uri>, val context: Context, val vm: MainViewModelForTeacher): RecyclerView.Adapter<GalleryAdapter.TaskHolder>() {
 
     class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val image = itemView.findViewById<ImageView>(R.id.gallery_image)
@@ -20,7 +21,7 @@ class GalleryAdapter(val sliderImage: ArrayList<Uri>,val context: Context, val v
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.gallery_item, parent, false)
-        return GalleryAdapter.TaskHolder(view)
+        return TaskHolder(view)
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {

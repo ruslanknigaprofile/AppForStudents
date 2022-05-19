@@ -4,14 +4,20 @@
 
     <item
         android:id="@+id/TasksMenu"
-        android:icon="@drawable/ic_baseline_list_alt_24"
+        android:icon="@drawable/ic_sharp_list_alt_24"
         android:title="Список Заданий"
         app:cnb_iconColor="#3E3B1D"/>
 
     <item
         android:id="@+id/AddTask"
-        android:icon="@drawable/ic_baseline_playlist_add_check_24"
+        android:icon="@drawable/ic_sharp_create_24"
         android:title="Добавить задание"
+        app:cnb_iconColor="#3E3B1D"/>
+
+    <item
+        android:id="@+id/Students"
+        android:icon="@drawable/ic_sharp_people_outline_24"
+        android:title="Список учащихся"
         app:cnb_iconColor="#3E3B1D"/>
 
 </menu>

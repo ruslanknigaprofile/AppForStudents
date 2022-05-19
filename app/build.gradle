@@ -62,4 +62,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2"
 
     implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
+
+    implementation 'im.dacer:AndroidCharts:1.0.4'
 }

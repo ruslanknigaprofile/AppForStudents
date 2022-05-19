@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.appforstudents.Model.Task
 import com.example.appforstudents.Model.Teacher
+import com.example.appforstudents.Presentation.Adapter.Teacher.GroupTasksListAdapter
 import com.example.appforstudents.Presentation.Adapter.Teacher.TasksListAdapter
 import com.example.appforstudents.Repositories.ConectorDB
 
@@ -15,9 +16,10 @@ class TasksListViewModel(application: Application, val mainModel: MainViewModelF
     //Model
     var teacher = MutableLiveData(Teacher())
     var tasksList = MutableLiveData<ArrayList<Task>>()
+    var dateSortList: ArrayList<String> = arrayListOf()
 
     //Adapter
-    var tasksListAdapter = MutableLiveData<TasksListAdapter>()
+    var tasksListAdapter = MutableLiveData<GroupTasksListAdapter>()
 
     //Repositories
     private val connector = ConectorDB()
@@ -40,7 +42,13 @@ class TasksListViewModel(application: Application, val mainModel: MainViewModelF
         connector.readTasksListByTeacherId({ setTasksListAdapter() }, tasksList, teacher.value!!.teacherId)
     }
     private fun setTasksListAdapter(){
-        tasksListAdapter.value = TasksListAdapter(this)
+        dateSortList.clear()
+        for(task in tasksList.value!!){
+            if (!dateSortList.contains(task.date)){
+                dateSortList.add(task.date)
+            }
+        }
+        tasksListAdapter.value = GroupTasksListAdapter(dateSortList, tasksList.value!!, mainModel)
     }
 
     //Navigation

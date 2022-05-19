@@ -38,73 +38,53 @@ class MainActivityTeacher : AppCompatActivity() {
         botomBar.setOnItemSelectedListener {
             when(it){
                 R.id.TasksMenu ->{
-                    vm.replace("TaskListFragment", null)
+                    vm.replace("TasksListFragment", null)
                 }
                 R.id.AddTask ->{
                     vm.replace("CreateTestFragment",null)
+                }
+                R.id.Students ->{
+                    vm.replace("StudentsListFragment",null)
                 }
             }
         }
 
         vm.currentFragment.observe(this){
             when(it){
-                "TaskListFragment" ->{
+                "TasksListFragment" ->{
+                    botomBar.isVisible = true
+                    botomBar.setItemSelected(R.id.TasksMenu)
+                }
+                "StudentsListFragment" ->{
                     botomBar.isVisible = true
                 }
-                "CreateAnswerFragment" ->{
+                "StudentFragment" ->{
+                    botomBar.isVisible = false
                 }
-                "CreateTestFragment" ->{
-                }
-                "AnswerTaskInfoFragment" -> {
+                "ReviewTestFragment" ->{
                     botomBar.isVisible = false
                 }
             }
         }
-/*
-        vm.positionTaskDeleted.observe(this){
-            createSimpleDialog(
-                "Удалить задание?",
-                "Если хотите удалить выбранное задание нажмите 'да'.",
-                { vm.deleteItemTasksListByPath() }
-            )
-        }*/
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if(requestCode == ImagePicker.REQUEST_CODE && resultCode == RESULT_OK && data != null){
-            //vm.listUrisAdd(data.data.toString())
-            //vm.setGalleryAdapter()
-        }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     override fun onBackPressed() {
         when(vm.currentFragment.value){
-            "AnswerTaskInfoFragment" ->{
-                vm.replace("TaskListFragment",null)
-            }
             "CreateTestFragment" ->{
-                vm.replace("TaskListFragment",null)
+                vm.replace("TasksListFragment",null)
             }
             "CreateAnswerFragment" ->{
-                vm.replace("TaskListFragment",null)
+                vm.replace("TasksListFragment",null)
             }
-
             "GalleryFragment" ->{
-                vm.replace("AnswerTaskInfoFragment",null)
+                vm.replace("ReviewTestFragment", null)
+            }
+            "StudentFragment" ->{
+                vm.replace("StudentsListFragment", null)
+            }
+            "ReviewTestFragment" ->{
+                vm.replace("TasksListFragment", null)
             }
         }
-    }
-
-    private fun createSimpleDialog(title: String, message: String, function: () -> Unit){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(title)
-        builder.setMessage(message)
-        builder.setNegativeButton("Нет") { dialogInterface, i ->
-        }
-        builder.setPositiveButton("Да") { dialogInterface, i ->
-            function()
-        }
-        builder.show()
     }
 }

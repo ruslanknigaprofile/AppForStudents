@@ -9,7 +9,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.appforstudents.Model.CompletedTask
 import com.example.appforstudents.Model.Student
 import com.example.appforstudents.Model.Task
-import com.example.appforstudents.Presentation.Adapter.GalleryAdapter
+import com.example.appforstudents.Presentation.Adapter.Student.GalleryAdapter
 import com.example.appforstudents.Presentation.Adapter.Student.TestAdapter
 import com.example.appforstudents.Repositories.ConectorDB
 
@@ -21,11 +21,11 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
     var taskId = MutableLiveData<String>()
     var completedTasksList = MutableLiveData<ArrayList<CompletedTask>>()
     var raiting = MutableLiveData<Int>()
-    var galleryAdapter = MutableLiveData<GalleryAdapter?>()
-    var sliderImage = MutableLiveData<ArrayList<Uri>>(arrayListOf())
+    //var sliderImage = MutableLiveData<ArrayList<Uri>>(arrayListOf())
 
     //Adapter
     var testAdapter = MutableLiveData<TestAdapter>()
+    var galleryAdapter = MutableLiveData<GalleryAdapter?>()
 
     //Repositories
     private val connector = ConectorDB()
@@ -49,14 +49,15 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
         connector.readCompletedTasks(student.value!!.studentId, completedTasksList)
         connector.readRating(student.value!!.studentId, raiting)
     }
+    /*
     fun getImagesForReview(){
         sliderImage.value?.clear()
         connector.getImages(task.value!!, { setSliderAdapter() }, sliderImage)
-    }
+    }*/
 
     //setRecyclerViewAdapter
-    private fun setSliderAdapter(){
-        galleryAdapter.value = GalleryAdapter(sliderImage.value!!, getApplication<Application>().baseContext, mainModel)
+    /*private*/fun setSliderAdapter(){
+        galleryAdapter.value = GalleryAdapter(/*sliderImage.value!!*/ task.value!!.listImageUrl, getApplication<Application>().baseContext, mainModel)
     }
     fun setTestAdapter(){
         testAdapter.value = TestAdapter(this)
@@ -65,21 +66,17 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
     //UpdateCompletedTask
     fun updateCompletedAnswerTask(solution: String){
         val completedTask = CompletedTask()
-        //completedTasksList.value?.task?.add(0, task.value!!)
         completedTask.task = task.value!!
-        //completedTasksList.value?.answer?.add(0, solution)
         completedTask.answer = solution
         if (solution == task.value!!.listAnswers.get(0)){
             completedTask.asses = true
-            //completedTasksList.value?.asses?.add(0, true)
             raiting.value = raiting.value?.plus(1)
         } else{
             completedTask.asses = false
-            //completedTasksList.value?.asses?.add(0,false)
             raiting.value = raiting.value?.minus(1)
         }
 
-        completedTasksList.value?.add(0, completedTask)
+        completedTasksList.value?.add(0,completedTask)
 
         connector.updateStudentRaitingInDB(student.value!!.studentId, raiting.value!!)
         connector.updateStudentCompletedTaskInDB(student.value!!.studentId, completedTasksList.value!!)
@@ -87,7 +84,6 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
     }
     fun updateCompletedTestTask(solution: ArrayList<Boolean>){
         val completedTask = CompletedTask()
-        //completedTasksList.value?.task?.add(0, task.value!!)
         completedTask.task = task.value!!
 
         var asses = true
@@ -101,20 +97,17 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
             }
         }
 
-        //completedTasksList.value?.answer?.add(0, answer)
         completedTask.answer = answer
 
         if (asses){
-            //completedTasksList.value?.asses?.add(0, true)
             completedTask.asses = true
             raiting.value = raiting.value?.plus(1)
         } else{
-            //completedTasksList.value?.asses?.add(0,false)
             completedTask.asses = false
             raiting.value = raiting.value?.minus(1)
         }
 
-        completedTasksList.value?.add(0, completedTask)
+        completedTasksList.value?.add(0,completedTask)
 
         connector.updateStudentRaitingInDB(student.value!!.studentId, raiting.value!!)
         connector.updateStudentCompletedTaskInDB(student.value!!.studentId, completedTasksList.value!!)

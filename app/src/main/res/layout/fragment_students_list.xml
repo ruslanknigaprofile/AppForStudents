@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentation.View.Teacher.TasksListFragment"
-    android:background="#DCEDC8"
-    android:padding="10dp">
+    tools:context=".Presentation.View.Teacher.StudentsListFragment"
+    android:padding="10dp"
+    android:background="#B2EBF2">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/tasksList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        android:layout_height="match_parent"
+        android:id="@+id/studentsList"/>
 </RelativeLayout>

@@ -11,12 +11,10 @@
         android:theme="@style/Theme.AppForStudents" >
         <activity
             android:name=".Presentation.View.Teacher.MainActivityTeacher"
-            android:exported="false"
-            android:label="@string/title_activity_main_teacher"
-            android:theme="@style/Theme.AppForStudents.NoActionBar" />
+            android:exported="false"/>
         <activity
             android:name=".Presentation.View.Student.MainActivityStudent"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".Presentation.View.RegistrationActivity"
             android:exported="true" >

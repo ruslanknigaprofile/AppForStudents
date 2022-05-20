@@ -19,6 +19,7 @@ class ReviewTaskViewModel (application: Application, val mainModel: MainViewMode
     var studentsList = MutableLiveData<ArrayList<Student>>()
     var possitionTask = MutableLiveData<ArrayList<Int>>()
     var imagesList = MutableLiveData<ArrayList<Uri>>()
+    var amountStudents = MutableLiveData<Int>()
     var studentChangeAssesListener = MutableLiveData<StudentAssesAdapter.ChangeAsses>()
 
     //Adapter
@@ -38,6 +39,7 @@ class ReviewTaskViewModel (application: Application, val mainModel: MainViewMode
             id,
             studentsList,
             possitionTask,
+            amountStudents,
             { setStudentsAdapter() }
         )
     }

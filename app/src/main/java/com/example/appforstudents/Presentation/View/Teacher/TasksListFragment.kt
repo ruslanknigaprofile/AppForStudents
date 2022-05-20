@@ -61,13 +61,7 @@ class TasksListFragment : Fragment() {
         vm.tasksListAdapter.observe(viewLifecycleOwner){
             if (it != null){
                 recyclerView?.adapter = it
-                if (it.itemCount > 0){
-                    annotation?.isVisible = false
-                    recyclerView?.isVisible = true
-                }else{
-                    annotation?.isVisible = true
-                    recyclerView?.isVisible = false
-                }
+                annotation?.isVisible = it.itemCount <= 0
             }
         }
 

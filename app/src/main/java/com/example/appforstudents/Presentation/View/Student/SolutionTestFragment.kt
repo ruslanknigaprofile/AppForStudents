@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.isVisible
@@ -26,6 +27,7 @@ class SolutionTestFragment : Fragment() {
     var testRecyclerView: RecyclerView? = null
     var taskBody: TextView? = null
     var giveSolution: AppCompatButton? = null
+    var galleryView: LinearLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,33 +39,35 @@ class SolutionTestFragment : Fragment() {
         ).get(SolutionTaskViewModel::class.java)
 
         if (arguments?.getString("positionSolutionTestTask") != "id"){
+            dispose()
             vm.taskId.value = arguments?.getString("positionSolutionTestTask")
-            vm.galleryAdapter.value = null
+            vm.getData()
+            vm.getTask()
         }
-        vm.getData()
-        vm.getTask()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_solution_test, container, false)
-
-        init(view)
-
-        return view
+        return inflater.inflate(R.layout.fragment_solution_test, container, false)
     }
 
-    private fun init(view: View) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        galleryView = view.findViewById(R.id.galleryView)
         taskBody = view.findViewById(R.id.taskBody)
         giveSolution = view.findViewById(R.id.giveSolution)
         testRecyclerView = view.findViewById(R.id.testItemRecyclerView)
+        testRecyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.recyclerViewGallery)
 
-        testRecyclerView?.layoutManager = LinearLayoutManager(context)
+        init()
+    }
 
-        vm.task.observe(requireActivity()){
+    private fun init(){
+        vm.task.observe(viewLifecycleOwner){
             if (it != null){
                 if (vm.galleryAdapter.value == null){
                     //vm.getImagesForReview()
@@ -74,7 +78,7 @@ class SolutionTestFragment : Fragment() {
                 vm.setTestAdapter()
             }
         }
-        vm.testAdapter.observe(requireActivity()){
+        vm.testAdapter.observe(viewLifecycleOwner){
             if (vm.task.value != null) {
                 testRecyclerView?.adapter = it
             }
@@ -85,10 +89,10 @@ class SolutionTestFragment : Fragment() {
         recyclerView?.layoutManager = mLayoutManager
         recyclerView?.isVisible = false
 
-        vm.galleryAdapter.observe(requireActivity()) {
+        vm.galleryAdapter.observe(viewLifecycleOwner) {
             if(it != null) {
                 recyclerView?.adapter = it
-                recyclerView?.isVisible = it.itemCount >= 1
+                galleryView?.isVisible = it.itemCount >= 1
             }
         }
 
@@ -99,16 +103,35 @@ class SolutionTestFragment : Fragment() {
                 answer.add(i.checkBox.isChecked)
             }
             vm.updateCompletedTestTask(answer)
+            vm.replace("CompletedTasksListFragment", null)
         }
     }
 
-    override fun onDestroyView() {
-        vm.task.removeObservers(requireActivity())
-        vm.testAdapter.removeObservers(requireActivity())
-        vm.galleryAdapter.removeObservers(requireActivity())
+    override fun onStop() {
+        super.onStop()
+        val answer = arrayListOf<Boolean>()
+        if (vm.testAdapter.value?.holders != null){
+            for (i in vm.testAdapter.value?.holders!!)
+            {
+                answer.add(i.checkBox.isChecked)
+            }
+            vm.updateCompletedTestTask(answer)
+        }
+        mainView.createToast("Задание завершено!")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (vm.endTask.value == true){
+            vm.replace("CompletedTasksListFragment", null)
+        }
+    }
+
+
+    private fun dispose(){
         vm.task.value = null
         vm.testAdapter.value = null
-        //vm.galleryAdapter.value = null
-        super.onDestroyView()
+        vm.galleryAdapter.value = null
+        vm.endTask.value = null
     }
 }

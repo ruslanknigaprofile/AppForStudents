@@ -3,6 +3,7 @@ package com.example.appforstudents.Domain.ViewModel.Teacher
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -35,5 +36,9 @@ class MainViewModelForTeacher(application: Application) : AndroidViewModel(appli
             function()
         }
         builder.show()
+    }
+
+    fun createToast(text: String){
+        Toast.makeText(getApplication(), text, Toast.LENGTH_SHORT).show()
     }
 }

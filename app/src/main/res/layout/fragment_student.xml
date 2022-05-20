@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Presentation.View.Teacher.StudentFragment"
     android:orientation="vertical"
-    android:background="#B2DFDB">
+    android:background="#4DB6AC">
 
     <RelativeLayout
         android:layout_width="match_parent"

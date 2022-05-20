@@ -3,11 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentation.View.Student.TasksListFragment">
+    tools:context=".Presentation.View.Student.TasksListFragment"
+    android:background="#81C784">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:padding="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="У вас больше нет домашнего задания!"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:id="@+id/annotation"
+        android:padding="10dp"/>
 
 </RelativeLayout>

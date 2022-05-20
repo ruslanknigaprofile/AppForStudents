@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF3E0"
+    android:background="#FF8A65"
     tools:context=".Presentation.View.Student.SolutionTestFragment">
 
     <LinearLayout
@@ -18,13 +18,7 @@
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="35dp"/>
-
+        android:textSize="22sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -59,6 +53,7 @@
         android:layout_height="35dp"/>
 
     <LinearLayout
+        android:id="@+id/galleryView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"

@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.appforstudents.Model.CompletedTask
 import com.example.appforstudents.Model.Student
 import com.example.appforstudents.Model.Task
+import com.example.appforstudents.Presentation.Adapter.Student.GroupTasksListAdapter
 import com.example.appforstudents.Presentation.Adapter.Student.TasksListAdapter
 import com.example.appforstudents.Repositories.ConectorDB
 
@@ -16,10 +17,12 @@ class TasksListViewModel(application: Application,val mainModel: MainViewModelFo
     //Model
     var student = MutableLiveData(Student())
     var tasksList = MutableLiveData<ArrayList<Task>>()
+    private var dateSortList: ArrayList<String> = arrayListOf()
     var completedTasksList = MutableLiveData<ArrayList<CompletedTask>>()
 
     //Adapter
-    var tasksListAdapter = MutableLiveData<TasksListAdapter>()
+    var tasksListAdapter = MutableLiveData<GroupTasksListAdapter>()
+    var startTaskListener = MutableLiveData<TasksListAdapter.StartTaskListener>()
 
     //Repositories
     private val connector = ConectorDB()
@@ -45,7 +48,28 @@ class TasksListViewModel(application: Application,val mainModel: MainViewModelFo
         connector.readTasksListByCompletedTask({ setTasksListAdapter() }, tasksList, completedTasksList)
     }
     private fun setTasksListAdapter(){
-        tasksListAdapter.value = TasksListAdapter(this)
+        dateSortList.clear()
+        for(task in tasksList.value!!){
+            if (!dateSortList.contains(task.date)){
+                dateSortList.add(task.date)
+            }
+        }
+        tasksListAdapter.value = GroupTasksListAdapter(dateSortList, tasksList.value!!, mainModel, startTaskListener.value!!)
+    }
+
+    fun startTask(task: Task){
+        if (task.typeTask == "Test"){
+            val bundle = Bundle()
+            bundle.putString("positionSolutionTestTask", task.id)
+
+            replace("SolutionTestFragment", bundle)
+        }
+        else if(task.typeTask == "Answer"){
+            val bundle = Bundle()
+            bundle.putString("positionSolutionAnswerTask", task.id)
+
+            replace("SolutionAnswerTaskFragment", bundle)
+        }
     }
 
     //Navigation

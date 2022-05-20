@@ -5,12 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appforstudents.Domain.ViewModel.Student.MainViewModelForStudent
 import com.example.appforstudents.Domain.ViewModel.Student.TasksListViewFactory
 import com.example.appforstudents.Domain.ViewModel.Student.TasksListViewModel
+import com.example.appforstudents.Model.Task
+import com.example.appforstudents.Presentation.Adapter.Student.TasksListAdapter
 import com.example.appforstudents.R
 
 
@@ -20,6 +24,7 @@ class TasksListFragment : Fragment() {
     private lateinit var mainView: MainViewModelForStudent
 
     var recyclerView: RecyclerView? = null
+    var annotation: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,23 +43,41 @@ class TasksListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_tasks_list_for_studetn, container, false)
-
-        init(view)
-
-        return view
+        return inflater.inflate(R.layout.fragment_tasks_list_for_studetn, container, false)
     }
 
-    private fun init(view: View){
-        //RecyclerView
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.tasksList)
         recyclerView!!.layoutManager = LinearLayoutManager(context)
+        annotation = view.findViewById(R.id.annotation)
 
-        vm.completedTasksList.observe(requireActivity()){
+        dispose()
+        init()
+    }
+
+    private fun init(){
+        vm.completedTasksList.observe(viewLifecycleOwner){
             vm.getTasksList()
         }
-        vm.tasksListAdapter.observe(requireActivity()){
-            recyclerView?.adapter = it
+        vm.tasksListAdapter.observe(viewLifecycleOwner){
+            if (it != null){
+                recyclerView?.adapter = it
+                annotation?.isVisible = it.itemCount <= 0
+            }
         }
+
+        vm.startTaskListener.value = object : TasksListAdapter.StartTaskListener{
+            override fun startTask(task: Task) {
+                mainView.createSimpleDialog(requireContext(),
+                    "Начать выполнение задания?",
+                    "Если вы начнёте выполнение задания, вы не сможете прерваться, пока не завершите его.",
+                    { vm.startTask(task) })
+            }
+        }
+    }
+
+    private fun dispose(){
+        vm.tasksListAdapter.value = null
     }
 }

@@ -6,18 +6,18 @@
         android:id="@+id/TasksMenu"
         android:icon="@drawable/ic_sharp_list_alt_24"
         android:title="Список Заданий"
-        app:cnb_iconColor="#3E3B1D"/>
+        app:cnb_iconColor="#1B5E20"/>
 
     <item
         android:id="@+id/AddTask"
         android:icon="@drawable/ic_sharp_create_24"
         android:title="Добавить задание"
-        app:cnb_iconColor="#3E3B1D"/>
+        app:cnb_iconColor="#F57F17"/>
 
     <item
         android:id="@+id/Students"
         android:icon="@drawable/ic_sharp_people_outline_24"
         android:title="Список учащихся"
-        app:cnb_iconColor="#3E3B1D"/>
+        app:cnb_iconColor="#01579B"/>
 
 </menu>

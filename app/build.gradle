@@ -64,4 +64,5 @@ dependencies {
     implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
 
     implementation 'im.dacer:AndroidCharts:1.0.4'
+    implementation "org.jetbrains.kotlin:kotlin-reflect:1.6.10"
 }

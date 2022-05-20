@@ -7,15 +7,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.appforstudents.Domain.ViewModel.Student.MainViewModelForStudent
 import com.example.appforstudents.Domain.ViewModel.Student.TasksListViewModel
+import com.example.appforstudents.Model.Task
+import com.example.appforstudents.Presentation.View.Student.MainActivityStudent
 import com.example.appforstudents.R
 
-class TasksListAdapter(val vm: TasksListViewModel) : RecyclerView.Adapter<TasksListAdapter.TaskHolder>() {
+class TasksListAdapter(val tasksList: ArrayList<Task>, val vm: MainViewModelForStudent, val startTaskListener: StartTaskListener) : RecyclerView.Adapter<TasksListAdapter.TaskHolder>() {
 
     class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val taskTypeIcon =itemView.findViewById<ImageView>(R.id.taskTypeIcon)
         val taskType =itemView.findViewById<TextView>(R.id.taskType)
         val teacherString = itemView.findViewById<TextView>(R.id.teacher_string)
+        val asses = itemView.findViewById<TextView>(R.id.asses)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
@@ -24,38 +28,30 @@ class TasksListAdapter(val vm: TasksListViewModel) : RecyclerView.Adapter<TasksL
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
-        if (vm.tasksList.value!!.get(position).typeTask == "Test"){
+        val task = tasksList.get(position)
+
+        if (task.typeTask == "Test"){
             holder.taskTypeIcon.setImageResource(R.drawable.test_icon)
             holder.taskType.text = "Тест"
         }
-        else if(vm.tasksList.value!!.get(position).typeTask == "Answer"){
+        else if(task.typeTask == "Answer"){
             holder.taskTypeIcon.setImageResource(R.drawable.task_icon)
             holder.taskType.text = "Задача"
         }
 
-        val teacherNamesAndDate = "Дано: " + vm.tasksList.value!!.get(position).teacherNames + vm.tasksList.value!!.get(position).date
-        holder.teacherString.text = teacherNamesAndDate
+        holder.teacherString.text = "Преподаватель: " + task.teacherNames
+        holder.asses.text = "Задано в " + task.time
 
         holder.itemView.setOnClickListener{
-            if (vm.tasksList.value!!.get(position).typeTask == "Test"){
-                val bundle = Bundle()
-                bundle.putString("positionSolutionTestTask", vm.tasksList.value!!.get(position).id)
-
-                vm.replace("SolutionTestFragment", bundle)
-            }
-            else if(vm.tasksList.value!!.get(position).typeTask == "Answer"){
-                val bundle = Bundle()
-                bundle.putString("positionSolutionAnswerTask", vm.tasksList.value!!.get(position).id)
-
-                vm.replace("SolutionAnswerTaskFragment", bundle)
-            }
+            startTaskListener.startTask(task)
         }
     }
 
+    interface StartTaskListener{
+        fun startTask(task: Task)
+    }
+
     override fun getItemCount(): Int {
-        if (vm.tasksList.value != null)
-            return vm.tasksList.value!!.size
-        else
-            return 0
+        return tasksList.size
     }
 }

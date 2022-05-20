@@ -44,14 +44,15 @@ class ConectorDB {
         })
     }
 
-    fun readStudentsListsCompletedTask(taskId: String, students: MutableLiveData<ArrayList<Student>>, possition: MutableLiveData<ArrayList<Int>>, function: () -> Unit){
+    fun readStudentsListsCompletedTask(taskId: String, students: MutableLiveData<ArrayList<Student>>, possition: MutableLiveData<ArrayList<Int>>, count: MutableLiveData<Int>, function: () -> Unit){
         mDataBaseInstance.getReference("StudentsID").addValueEventListener( object : ValueEventListener{
             override fun onDataChange(snapshot: DataSnapshot) {
                 students.value = arrayListOf()
                 possition.value= arrayListOf()
+                count.value = 0
                 for(ds in snapshot.children){
                     val student = ds.getValue(Student::class.java) as Student
-
+                    count.value = count.value?.plus(1)
                     for ((index, task) in student.completedTask.withIndex()){
                         if (task.task.id == taskId){
                             students.value?.add(student)

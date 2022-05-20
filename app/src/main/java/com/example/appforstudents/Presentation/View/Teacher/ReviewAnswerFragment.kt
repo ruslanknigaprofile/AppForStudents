@@ -8,22 +8,23 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appforstudents.Domain.ViewModel.Teacher.*
+import com.example.appforstudents.Domain.ViewModel.Teacher.MainViewModelForTeacher
+import com.example.appforstudents.Domain.ViewModel.Teacher.ReviewTaskViewFactory
+import com.example.appforstudents.Domain.ViewModel.Teacher.ReviewTaskViewModel
 import com.example.appforstudents.Presentation.Adapter.Teacher.StudentAssesAdapter
 import com.example.appforstudents.R
 
 
-class ReviewTestFragment : Fragment() {
+class ReviewAnswerFragment : Fragment() {
 
     private lateinit var vm: ReviewTaskViewModel
     private lateinit var mainView: MainViewModelForTeacher
 
     var taskBody: TextView? = null
-    var testList: RecyclerView? = null
+    var rightAnswer: TextView? = null
     var recyclerViewGallery: RecyclerView? = null
     var studentsList: RecyclerView? = null
     var imageView: LinearLayout? = null
@@ -50,13 +51,13 @@ class ReviewTestFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_review_test, container, false)
+        return inflater.inflate(R.layout.fragment_review_answer, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         taskBody = view.findViewById(R.id.taskBody)
-        testList = view.findViewById(R.id.testList)
+        rightAnswer = view.findViewById(R.id.rightAnswer)
         recyclerViewGallery = view.findViewById(R.id.recyclerViewGallery)
         studentsList = view.findViewById(R.id.studentsList)
         imageView = view.findViewById(R.id.imageView)
@@ -69,7 +70,7 @@ class ReviewTestFragment : Fragment() {
         vm.task.observe(viewLifecycleOwner) {
             if (it != null) {
                 taskBody?.text = it.bodyTask
-
+                rightAnswer?.text = "Ответ: " + it.listAnswers.get(0)
                 if (vm.testAdapter.value == null){
                     vm.setTestAdapter()
                 }
@@ -77,13 +78,6 @@ class ReviewTestFragment : Fragment() {
                 if(vm.galleryAdapter.value == null){
                     vm.getImages()
                 }
-            }
-        }
-
-        testList!!.layoutManager = LinearLayoutManager(context)
-        vm.testAdapter.observe(viewLifecycleOwner) {
-            if (it != null) {
-                testList?.adapter = it
             }
         }
 
@@ -113,8 +107,8 @@ class ReviewTestFragment : Fragment() {
         vm.studentChangeAssesListener.value = object : StudentAssesAdapter.ChangeAsses{
             override fun changeAsses(studentId: String, taskId: String) {
                 mainView.createSimpleDialog(requireContext(),
-                "Изменить оценивание",
-                "Вы уверены что хотите изменить оценку данного учащегося?",
+                    "Изменить оценивание",
+                    "Вы уверены что хотите изменить оценку данного учащегося?",
                     { vm.changeAssesInDB(studentId, taskId) })
             }
         }
@@ -122,7 +116,6 @@ class ReviewTestFragment : Fragment() {
 
     private fun dispose(){
         vm.task.value = null
-        vm.testAdapter.value = null
         vm.imagesList.value?.clear()
         vm.galleryAdapter.value = null
         vm.studentChangeAssesListener.value = null

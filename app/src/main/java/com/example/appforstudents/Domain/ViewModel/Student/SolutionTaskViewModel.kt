@@ -22,6 +22,7 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
     var completedTasksList = MutableLiveData<ArrayList<CompletedTask>>()
     var raiting = MutableLiveData<Int>()
     //var sliderImage = MutableLiveData<ArrayList<Uri>>(arrayListOf())
+    var endTask = MutableLiveData<Boolean>()
 
     //Adapter
     var testAdapter = MutableLiveData<TestAdapter>()
@@ -80,7 +81,7 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
 
         connector.updateStudentRaitingInDB(student.value!!.studentId, raiting.value!!)
         connector.updateStudentCompletedTaskInDB(student.value!!.studentId, completedTasksList.value!!)
-        replace("CompletedTasksListFragment", null)
+        endTask.value = true
     }
     fun updateCompletedTestTask(solution: ArrayList<Boolean>){
         val completedTask = CompletedTask()
@@ -111,7 +112,7 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
 
         connector.updateStudentRaitingInDB(student.value!!.studentId, raiting.value!!)
         connector.updateStudentCompletedTaskInDB(student.value!!.studentId, completedTasksList.value!!)
-        replace("CompletedTasksListFragment", null)
+        endTask.value = true
     }
 /*
     fun disposeGallery(){

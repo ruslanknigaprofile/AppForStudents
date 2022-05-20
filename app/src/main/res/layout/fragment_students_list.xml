@@ -4,18 +4,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Presentation.View.Teacher.StudentsListFragment"
-    android:padding="10dp"
-    android:background="#B2EBF2">
+    android:background="#4DD0E1">
 
     <TextView
+        android:padding="10dp"
         android:id="@+id/annotation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:textSize="22sp"
         android:text="Пока ещё нет ни одного учащегося"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textColor="@color/black"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/studentsList"/>

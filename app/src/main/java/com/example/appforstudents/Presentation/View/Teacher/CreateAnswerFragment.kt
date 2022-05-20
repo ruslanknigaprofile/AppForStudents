@@ -94,12 +94,7 @@ class CreateAnswerFragment : Fragment() {
         }
 
         giveTest?.setOnClickListener {
-            mainView.createSimpleDialog(
-                requireContext(),
-                "Опубликовать задание?",
-                "Если вы хотите опубликовать задание нажмите 'Да'.",
-                { postTest() }
-            )
+            checkView()
         }
 
         switch?.setSelection(1)
@@ -123,6 +118,23 @@ class CreateAnswerFragment : Fragment() {
         vm.task.value?.typeTask = "Answer"
         vm.writeTaskInDB()
         vm.replace("TasksListFragment", null)
+    }
+
+    private fun checkView(){
+        if(taskBody?.text.toString() == ""){
+            mainView.createToast("Заполните поле вопроса!")
+        }
+        else if(editAnswer?.text.toString() == ""){
+            mainView.createToast("Заполните поле ответа!")
+        }
+        else{
+            mainView.createSimpleDialog(
+                requireContext(),
+                "Опубликовать задание?",
+                "Если вы хотите опубликовать задание нажмите 'Да'.",
+                { postTest() }
+            )
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

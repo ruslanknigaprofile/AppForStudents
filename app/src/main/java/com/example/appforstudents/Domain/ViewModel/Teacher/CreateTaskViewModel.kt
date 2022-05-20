@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.appforstudents.Model.Task
 import com.example.appforstudents.Model.Teacher
+import com.example.appforstudents.Presentation.Adapter.Teacher.CreateGalleryAdapter
 import com.example.appforstudents.Presentation.Adapter.Teacher.GalleryAdapter
 import com.example.appforstudents.Presentation.Adapter.Teacher.TestAdapter
 import com.example.appforstudents.Repositories.ConectorDB
@@ -22,7 +23,7 @@ class CreateTaskViewModel(application: Application, val mainModel: MainViewModel
     var teacher = MutableLiveData(Teacher())
     //RecyclerViewAdapter
     var testAdapter = MutableLiveData<TestAdapter>()
-    var galleryAdapter = MutableLiveData<GalleryAdapter?>()
+    var galleryAdapter = MutableLiveData<CreateGalleryAdapter>()
 
     //Repositories
     private val connector = ConectorDB()
@@ -49,11 +50,14 @@ class CreateTaskViewModel(application: Application, val mainModel: MainViewModel
 
     //Adapters
     fun setGalleryAdapter(){
-        val uriList = arrayListOf<Uri>()
-        for (item in task.value?.listImageUrl!!){
-            uriList.add(item.toUri())
-        }
-        galleryAdapter.value = GalleryAdapter(uriList, getApplication<Application>().baseContext, mainModel)
+        galleryAdapter.value = CreateGalleryAdapter(task.value?.listImageUrl!!, getApplication<Application>().baseContext,
+            object : CreateGalleryAdapter.DeleteImageListener{
+                override fun deleteImage(index: Int) {
+                    task.value?.listImageUrl!!.removeAt(index)
+                    galleryAdapter.value?.notifyItemRemoved(index)
+                }
+            },
+            mainModel)
     }
     fun setTestAdapter(){
         testAdapter.value = TestAdapter(task.value?.listAnswers!!,

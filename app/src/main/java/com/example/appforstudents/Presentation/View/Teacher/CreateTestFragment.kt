@@ -107,12 +107,7 @@ class CreateTestFragment : Fragment() {
         }
 
         giveTest?.setOnClickListener {
-            mainView.createSimpleDialog(
-                requireContext(),
-                "Опубликовать задание?",
-                "Если вы хотите опубликовать задание нажмите 'Да'.",
-                { postTest() }
-            )
+            checkView()
         }
 
         switch?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
@@ -128,11 +123,31 @@ class CreateTestFragment : Fragment() {
     }
 
     private fun postTest(){
-        vm.saveDataTest()
         vm.task.value?.bodyTask = taskBody?.text.toString()
         vm.task.value?.typeTask = "Test"
         vm.writeTaskInDB()
         vm.replace("TasksListFragment", null)
+    }
+
+    private fun checkView(){
+        vm.saveDataTest()
+        if (taskBody?.text.toString() == ""){
+            mainView.createToast("Заполните поле вопроса!")
+        }
+        else if(!vm.task.value?.checkBoolean!!.contains("true")){
+            mainView.createToast("Выберите хотя бы один правильный ответ!")
+        }
+        else if(vm.task.value?.listAnswers!!.contains("")){
+            mainView.createToast("Заполните все поля вариантов ответа!")
+        }
+        else{
+            mainView.createSimpleDialog(
+                requireContext(),
+                "Опубликовать задание?",
+                "Если вы хотите опубликовать задание нажмите 'Да'.",
+                { postTest() }
+            )
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

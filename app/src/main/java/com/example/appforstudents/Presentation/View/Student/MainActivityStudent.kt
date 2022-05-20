@@ -72,10 +72,10 @@ class MainActivityStudent : AppCompatActivity() {
                 //2
             }
             "SolutionAnswerTaskFragment" ->{
-                vm.replace("TasksListFragment",null)
+                vm.createToast("Завершите задание!")
             }
             "SolutionTestFragment" ->{
-                vm.replace("TasksListFragment",null)
+                vm.createToast("Завершите задание!")
             }
             "GalleryFragment" ->{
                 vm.replace("SolutionAnswerTaskFragment",null)

@@ -64,6 +64,9 @@ class MainActivityTeacher : AppCompatActivity() {
                 "ReviewTestFragment" ->{
                     botomBar.isVisible = false
                 }
+                "ReviewAnswerFragment" ->{
+                    botomBar.isVisible = false
+                }
             }
         }
     }
@@ -78,11 +81,15 @@ class MainActivityTeacher : AppCompatActivity() {
             }
             "GalleryFragment" ->{
                 vm.replace("ReviewTestFragment", null)
+                vm.replace("ReviewAnswerFragment", null)
             }
             "StudentFragment" ->{
                 vm.replace("StudentsListFragment", null)
             }
             "ReviewTestFragment" ->{
+                vm.replace("TasksListFragment", null)
+            }
+            "ReviewAnswerFragment" ->{
                 vm.replace("TasksListFragment", null)
             }
         }

@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_tasksListFragment2_to_reviewTestFragment"
             app:destination="@id/reviewTestFragment" />
+        <action
+            android:id="@+id/action_tasksListFragment2_to_reviewAnswerFragment"
+            app:destination="@id/reviewAnswerFragment" />
     </fragment>
     <fragment
         android:id="@+id/createTestFragment"
@@ -48,6 +51,9 @@
         <action
             android:id="@+id/action_galleryFragment2_to_reviewTestFragment"
             app:destination="@id/reviewTestFragment" />
+        <action
+            android:id="@+id/action_galleryFragment2_to_reviewAnswerFragment"
+            app:destination="@id/reviewAnswerFragment" />
     </fragment>
     <fragment
         android:id="@+id/createAnswerFragment"
@@ -101,6 +107,18 @@
             app:destination="@id/tasksListFragment2" />
         <action
             android:id="@+id/action_reviewTestFragment_to_galleryFragment2"
+            app:destination="@id/galleryFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/reviewAnswerFragment"
+        android:name="com.example.appforstudents.Presentation.View.Teacher.ReviewAnswerFragment"
+        android:label="fragment_review_answer"
+        tools:layout="@layout/fragment_review_answer" >
+        <action
+            android:id="@+id/action_reviewAnswerFragment_to_tasksListFragment2"
+            app:destination="@id/tasksListFragment2" />
+        <action
+            android:id="@+id/action_reviewAnswerFragment_to_galleryFragment2"
             app:destination="@id/galleryFragment2" />
     </fragment>
 </navigation>

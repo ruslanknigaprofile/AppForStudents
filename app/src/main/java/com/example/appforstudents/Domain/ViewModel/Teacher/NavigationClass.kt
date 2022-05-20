@@ -32,6 +32,9 @@ class NavigationClass (val navController: NavController) {
             "ReviewTestFragment" ->{
                 replaceFromReviewTestFragment(course,bundle)
             }
+            "ReviewAnswerFragment" ->{
+                replaceFromReviewAnswerFragment(course,bundle)
+            }
         }
     }
 
@@ -47,6 +50,10 @@ class NavigationClass (val navController: NavController) {
             }
             "ReviewTestFragment" ->{
                 navController.navigate(R.id.action_tasksListFragment2_to_reviewTestFragment, bundle)
+                from = course
+            }
+            "ReviewAnswerFragment" ->{
+                navController.navigate(R.id.action_tasksListFragment2_to_reviewAnswerFragment, bundle)
                 from = course
             }
         }
@@ -115,6 +122,12 @@ class NavigationClass (val navController: NavController) {
                     navController.navigate(R.id.action_galleryFragment2_to_reviewTestFragment, bundle)
                 }
             }
+            "ReviewAnswerFragment" -> {
+                if (to == "ReviewAnswerFragment") {
+                    from = course
+                    navController.navigate(R.id.action_galleryFragment2_to_reviewAnswerFragment, bundle)
+                }
+            }
         }
     }
     private fun replaceFromReviewTestFragment(course: String, bundle: Bundle?){
@@ -126,6 +139,19 @@ class NavigationClass (val navController: NavController) {
             }
             "TasksListFragment" ->{
                 navController.navigate(R.id.action_reviewTestFragment_to_tasksListFragment2, bundle)
+                from = course
+            }
+        }
+    }
+    private fun replaceFromReviewAnswerFragment(course: String, bundle: Bundle?){
+        when(course){
+            "GalleryFragment" ->{
+                navController.navigate(R.id.action_reviewAnswerFragment_to_galleryFragment2, bundle)
+                to = from
+                from = course
+            }
+            "TasksListFragment" ->{
+                navController.navigate(R.id.action_reviewAnswerFragment_to_tasksListFragment2, bundle)
                 from = course
             }
         }

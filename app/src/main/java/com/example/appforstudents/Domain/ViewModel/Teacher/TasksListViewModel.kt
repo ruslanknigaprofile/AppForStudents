@@ -16,7 +16,7 @@ class TasksListViewModel(application: Application, val mainModel: MainViewModelF
     //Model
     var teacher = MutableLiveData(Teacher())
     var tasksList = MutableLiveData<ArrayList<Task>>()
-    var dateSortList: ArrayList<String> = arrayListOf()
+    private var dateSortList: ArrayList<String> = arrayListOf()
     var deleteTaskListener = MutableLiveData<TasksListAdapter.DeleteTaskListener>()
 
     //Adapter

@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentation.View.Teacher.ReviewTestFragment"
-    android:background="#FF8A65">
+    tools:context=".Presentation.View.Teacher.ReviewAnswerFragment"
+    android:background="#64B5F6">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Тест"
+            android:text="Задача"
             android:textSize="22sp"
             android:textColor="@color/black"
             android:gravity="center"/>
@@ -34,11 +34,12 @@
                 android:text="Task body"
                 android:id="@+id/taskBody"/>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/testList"/>
-
+                android:textSize="20sp"
+                android:text="answer"
+                android:id="@+id/rightAnswer"/>
         </LinearLayout>
 
         <Space

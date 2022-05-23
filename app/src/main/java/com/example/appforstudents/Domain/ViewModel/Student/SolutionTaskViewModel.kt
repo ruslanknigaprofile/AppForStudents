@@ -21,12 +21,13 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
     var taskId = MutableLiveData<String>()
     var completedTasksList = MutableLiveData<ArrayList<CompletedTask>>()
     var raiting = MutableLiveData<Int>()
-    //var sliderImage = MutableLiveData<ArrayList<Uri>>(arrayListOf())
+    var imagesList = MutableLiveData<ArrayList<Uri>>()
     var endTask = MutableLiveData<Boolean>()
+    var inGallery = MutableLiveData<Boolean>()
 
     //Adapter
     var testAdapter = MutableLiveData<TestAdapter>()
-    var galleryAdapter = MutableLiveData<GalleryAdapter?>()
+    var galleryAdapter = MutableLiveData<GalleryAdapter>()
 
     //Repositories
     private val connector = ConectorDB()
@@ -50,15 +51,14 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
         connector.readCompletedTasks(student.value!!.studentId, completedTasksList)
         connector.readRating(student.value!!.studentId, raiting)
     }
-    /*
+
     fun getImagesForReview(){
-        sliderImage.value?.clear()
-        connector.getImages(task.value!!, { setSliderAdapter() }, sliderImage)
-    }*/
+        connector.getImages(task.value!!, imagesList)
+    }
 
     //setRecyclerViewAdapter
-    /*private*/fun setSliderAdapter(){
-        galleryAdapter.value = GalleryAdapter(/*sliderImage.value!!*/ task.value!!.listImageUrl, getApplication<Application>().baseContext, mainModel)
+    fun setSliderAdapter(){
+        galleryAdapter.value = GalleryAdapter(imagesList.value!!, getApplication<Application>().baseContext, inGallery, mainModel)
     }
     fun setTestAdapter(){
         testAdapter.value = TestAdapter(this)
@@ -82,6 +82,7 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
         connector.updateStudentRaitingInDB(student.value!!.studentId, raiting.value!!)
         connector.updateStudentCompletedTaskInDB(student.value!!.studentId, completedTasksList.value!!)
         endTask.value = true
+        mainModel.createToast("Задание завершено!")
     }
     fun updateCompletedTestTask(solution: ArrayList<Boolean>){
         val completedTask = CompletedTask()
@@ -113,12 +114,8 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
         connector.updateStudentRaitingInDB(student.value!!.studentId, raiting.value!!)
         connector.updateStudentCompletedTaskInDB(student.value!!.studentId, completedTasksList.value!!)
         endTask.value = true
+        mainModel.createToast("Задание завершено!")
     }
-/*
-    fun disposeGallery(){
-        galleryAdapter.value = null
-        sliderImage.value?.clear()
-    }*/
 
     //Navigation
     fun replace(course: String, bundle: Bundle?) {

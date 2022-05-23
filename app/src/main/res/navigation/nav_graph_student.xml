@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/tasksListFragment">
+    app:startDestination="@id/gameTaskFragment">
 
     <fragment
         android:id="@+id/tasksListFragment"
@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_tasksListFragment_to_solutionTestFragment"
             app:destination="@id/solutionTestFragment" />
+        <action
+            android:id="@+id/action_tasksListFragment_to_gameTaskFragment"
+            app:destination="@id/gameTaskFragment" />
     </fragment>
     <fragment
         android:id="@+id/completedTasksListFragment"
@@ -31,6 +34,9 @@
         <action
             android:id="@+id/action_completedTasksListFragment_to_reviewCompletedTaskFragment"
             app:destination="@id/reviewCompletedTaskFragment" />
+        <action
+            android:id="@+id/action_completedTasksListFragment_to_gameTaskFragment"
+            app:destination="@id/gameTaskFragment" />
     </fragment>
     <fragment
         android:id="@+id/solutionAnswerTaskFragment"
@@ -49,24 +55,6 @@
         <argument
             android:name="positionSolutionAnswerTask"
             android:defaultValue="id" />
-    </fragment>
-    <fragment
-        android:id="@+id/galleryFragment"
-        android:name="com.example.appforstudents.Presentation.View.GalleryFragment"
-        android:label="fragment_gallery"
-        tools:layout="@layout/fragment_gallery" >
-        <action
-            android:id="@+id/action_galleryFragment_to_solutionAnswerTaskFragment"
-            app:destination="@id/solutionAnswerTaskFragment" />
-        <action
-            android:id="@+id/action_galleryFragment_to_solutionTestFragment"
-            app:destination="@id/solutionTestFragment" />
-        <action
-            android:id="@+id/action_galleryFragment_to_reviewCompletedTaskFragment"
-            app:destination="@id/reviewCompletedTaskFragment" />
-        <argument
-            android:name="UriImage"
-            android:defaultValue="Uri" />
     </fragment>
     <fragment
         android:id="@+id/solutionTestFragment"
@@ -100,5 +88,47 @@
         <argument
             android:name="positionReviewCompletedTask"
             android:defaultValue="position" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.example.appforstudents.Presentation.View.Student.GalleryFragment"
+        android:label="fragment_gallery2"
+        tools:layout="@layout/fragment_gallery2" >
+        <action
+            android:id="@+id/action_galleryFragment_to_solutionAnswerTaskFragment"
+            app:destination="@id/solutionAnswerTaskFragment" />
+        <action
+            android:id="@+id/action_galleryFragment_to_solutionTestFragment"
+            app:destination="@id/solutionTestFragment" />
+        <action
+            android:id="@+id/action_galleryFragment_to_reviewCompletedTaskFragment"
+            app:destination="@id/reviewCompletedTaskFragment" />
+        <argument
+            android:name="UriImage"
+            android:defaultValue="Uri" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameTaskFragment"
+        android:name="com.example.appforstudents.Presentation.View.Student.GameTaskFragment"
+        android:label="fragment_game_task"
+        tools:layout="@layout/fragment_game_task" >
+        <action
+            android:id="@+id/action_gameTaskFragment_to_tasksListFragment"
+            app:destination="@id/tasksListFragment" />
+        <action
+            android:id="@+id/action_gameTaskFragment_to_completedTasksListFragment"
+            app:destination="@id/completedTasksListFragment" />
+        <action
+            android:id="@+id/action_gameTaskFragment_to_solveTrainTaskFragment"
+            app:destination="@id/solveTrainTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/solveTrainTaskFragment"
+        android:name="com.example.appforstudents.Presentation.View.Student.SolveTrainTaskFragment"
+        android:label="fragment_solve_train_task"
+        tools:layout="@layout/fragment_solve_train_task" >
+        <action
+            android:id="@+id/action_solveTrainTaskFragment_to_gameTaskFragment"
+            app:destination="@id/gameTaskFragment" />
     </fragment>
 </navigation>

@@ -1,92 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Presentation.View.Student.SolutionAnswerTaskFragment"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:background="#E1F5FE">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Решите Задачу!"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="35dp"/>
+    android:background="#4FC3F7">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/giveSolution"
         android:orientation="vertical"
-        android:background="@drawable/krugliye_ugli">
-
-
+        android:padding="20dp">
         <TextView
-            android:id="@+id/taskBody"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Задача"
+            android:text="Решите Задачу!"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="22sp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textSize="22sp"
-            android:layout_marginBottom="10dp"/>
-
-
+            android:text="От преподавателя:"
+            android:textStyle="bold"/>
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teacher_string"
+            android:textSize="20sp"
+            android:text="Имя"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="22sp"
+            android:text="Получено:"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/dateTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:text="Дата"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Введите верный ответ:"
-            android:textSize="21sp"
-            android:textStyle="bold" />
+            android:orientation="vertical"
+            android:background="@drawable/krugliye_ugli">
+
+            <TextView
+                android:id="@+id/taskBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Задача"
+                android:textSize="22sp"
+                android:layout_marginBottom="10dp"/>
 
 
-        <EditText
-            android:id="@+id/editAnswer"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Введите верный ответ:"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/editAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="6"
+                android:textSize="20sp"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </LinearLayout>
+
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+
+        <LinearLayout
+            android:id="@+id/galleryView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Ответ"
-            android:minHeight="48dp" />
+            android:orientation="vertical"
+            android:background="@drawable/krugliye_ugli">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Прекреплённые файлы"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewGallery"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+        </LinearLayout>
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/giveSolution"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/krugliye_ugli"
+            android:textColor="@color/black"
+            android:text="Отправить ответ" />
+
+
     </LinearLayout>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="35dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/krugliye_ugli">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Прекреплённые файлы"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewGallery"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"/>
-    </LinearLayout>
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="35dp"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/giveSolution"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/krugliye_ugli"
-        android:textColor="@color/black"
-        android:text="Отправить ответ" />
-
-</LinearLayout>
+</ScrollView>

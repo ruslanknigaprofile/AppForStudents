@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +21,7 @@ class CompletedTasksListFragment : Fragment() {
     private lateinit var mainView: MainViewModelForStudent
 
     var recyclerView: RecyclerView? = null
+    var annotation: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,23 +40,36 @@ class CompletedTasksListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_completed_tasks_list, container, false)
-
-        init(view)
-
-        return view
+        return inflater.inflate(R.layout.fragment_completed_tasks_list, container, false)
     }
 
-    private fun init(view: View) {
-        //RecyclerView
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        annotation = view.findViewById(R.id.annotation)
         recyclerView = view.findViewById(R.id.completedTasksList)
         recyclerView!!.layoutManager = LinearLayoutManager(context)
 
-        vm.completedTasksListAdapter.observe(requireActivity()){
-            recyclerView!!.adapter = it
+        dispose()
+        init()
+    }
+
+    private fun init() {
+        vm.completedTasksListAdapter.observe(viewLifecycleOwner){
+            if (it != null){
+                annotation?.isVisible = it.itemCount <= 0
+                recyclerView!!.adapter = it
+            }
         }
-        vm.completedTasksList.observe(requireActivity()){
-            vm.setCompletedTasksListAdapter()
+        vm.completedTasksList.observe(viewLifecycleOwner){
+            if (it != null){
+                vm.setCompletedTasksListAdapter()
+            }
         }
+    }
+
+    private fun dispose(){
+        vm.completedTasksList.value = null
+        vm.completedTasksListAdapter.value = null
     }
 }

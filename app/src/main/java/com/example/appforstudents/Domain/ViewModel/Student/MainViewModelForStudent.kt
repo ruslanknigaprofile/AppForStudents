@@ -13,8 +13,10 @@ class MainViewModelForStudent(application: Application) : AndroidViewModel(appli
 
     //Navigation
     private var navigation: NavigationClass? = null
-    var currentFragment = MutableLiveData("TasksListFragment")
+    var currentFragment = MutableLiveData("GameTaskFragment")
 
+    //Alert
+    private var builderAlert = MutableLiveData<AlertDialog.Builder>()
 
     fun setNavigation(navController: NavController){
         navigation = NavigationClass(navController)
@@ -25,18 +27,21 @@ class MainViewModelForStudent(application: Application) : AndroidViewModel(appli
     }
 
 
-    //Allert
+    //Alert
+    fun setBuilder(builder: AlertDialog.Builder){
+        builderAlert.value = builder
+    }
+    fun createSimpleDialog(title: String, message: String, function: () -> Unit){
+        val builder = builderAlert.value
+        builder?.setTitle(title)
+        builder?.setMessage(message)
 
-    fun createSimpleDialog(context: Context, title: String, message: String, function: () -> Unit){
-        val builder = AlertDialog.Builder(context)
-        builder.setTitle(title)
-        builder.setMessage(message)
-        builder.setNegativeButton("Нет") { dialogInterface, i ->
+        builder?.setNegativeButton("Нет") { dialogInterface, i ->
         }
-        builder.setPositiveButton("Да") { dialogInterface, i ->
+        builder?.setPositiveButton("Да") { dialogInterface, i ->
             function()
         }
-        builder.show()
+        builder?.show()
     }
 
     fun createToast(text: String){

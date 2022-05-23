@@ -9,19 +9,16 @@ import com.example.appforstudents.Model.CompletedTask
 import com.example.appforstudents.Model.Student
 import com.example.appforstudents.Model.Task
 import com.example.appforstudents.Presentation.Adapter.Student.GroupTasksListAdapter
-import com.example.appforstudents.Presentation.Adapter.Student.TasksListAdapter
 import com.example.appforstudents.Repositories.ConectorDB
 
-class TasksListViewModel(application: Application,val mainModel: MainViewModelForStudent) : AndroidViewModel(application) {
+class SolveTrainTaskViewModel(application: Application, val mainModel: MainViewModelForStudent) : AndroidViewModel(application) {
 
     //Model
     var student = MutableLiveData(Student())
-    var tasksList = MutableLiveData<ArrayList<Task>>()
-    private var dateSortList: ArrayList<String> = arrayListOf()
-    var completedTasksList = MutableLiveData<ArrayList<CompletedTask>>()
+
 
     //Adapter
-    var tasksListAdapter = MutableLiveData<GroupTasksListAdapter>()
+
 
     //Repositories
     private val connector = ConectorDB()
@@ -38,23 +35,10 @@ class TasksListViewModel(application: Application,val mainModel: MainViewModelFo
             student.value!!.studentId = sharedPreferences.getString("id", null)!!
         }
     }
-    fun getCompletedTasks(){
-        connector.readCompletedTasks(student.value!!.studentId, completedTasksList)
-    }
+
 
     //RecyclerViewAdapter
-    fun getTasksList(){
-        connector.readTasksListByCompletedTask({ setTasksListAdapter() }, tasksList, completedTasksList)
-    }
-    private fun setTasksListAdapter(){
-        dateSortList.clear()
-        for(task in tasksList.value!!){
-            if (!dateSortList.contains(task.date)){
-                dateSortList.add(task.date)
-            }
-        }
-        tasksListAdapter.value = GroupTasksListAdapter(dateSortList, tasksList.value!!, mainModel)
-    }
+
 
     //Navigation
     fun replace(course: String, bundle: Bundle?) {

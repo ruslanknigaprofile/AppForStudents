@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.view.isVisible
@@ -27,6 +28,9 @@ class SolutionAnswerTaskFragment : Fragment() {
     var taskBody: TextView? = null
     var editAnswer: EditText? = null
     var giveSolution: AppCompatButton? = null
+    var galleryView: LinearLayout? = null
+    var teacherString: TextView? = null
+    var taskDate: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,66 +42,100 @@ class SolutionAnswerTaskFragment : Fragment() {
         ).get(SolutionTaskViewModel::class.java)
 
         if (arguments?.getString("positionSolutionAnswerTask") != "id"){
+            dispose()
             vm.taskId.value = arguments?.getString("positionSolutionAnswerTask")
-            vm.galleryAdapter.value = null
+            vm.getData()
+            vm.getTask()
         }
-        vm.getData()
-        vm.getTask()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_solution_answer_task, container, false)
-
-        init(view)
-
-        return view
+        return inflater.inflate(R.layout.fragment_solution_answer_task, container, false)
     }
 
-    private fun init(view: View){
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        galleryView = view.findViewById(R.id.galleryView)
         taskBody = view.findViewById(R.id.taskBody)
         giveSolution = view.findViewById(R.id.giveSolution)
         editAnswer = view.findViewById(R.id.editAnswer)
+        recyclerView = view.findViewById(R.id.recyclerViewGallery)
+        teacherString = view.findViewById(R.id.teacher_string)
+        taskDate = view.findViewById(R.id.dateTask)
 
-        vm.task.observe(requireActivity()){
-            if(it != null) {
+        init()
+    }
+
+    private fun init(){
+
+        vm.task.observe(viewLifecycleOwner){
+            if (it != null){
                 if (vm.galleryAdapter.value == null){
-                    //vm.getImagesForReview()
-                    vm.setSliderAdapter()
+                    vm.getImagesForReview()
                 }
-                taskBody?.text = vm.task.value?.bodyTask
+
+                taskBody?.text = it.bodyTask
+                teacherString?.text = it.teacherNames
+                taskDate?.text = it.date + " в " + it.time
+            }
+        }
+        vm.imagesList.observe(viewLifecycleOwner){
+            if (it != null){
+                vm.setSliderAdapter()
             }
         }
 
-
-
-        giveSolution?.setOnClickListener {
-            vm.updateCompletedAnswerTask(editAnswer?.text.toString())
-        }
-
-        recyclerView = view.findViewById(R.id.recyclerViewGallery)
         val mLayoutManager = LinearLayoutManager(requireContext())
         mLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         recyclerView?.layoutManager = mLayoutManager
-        recyclerView?.isVisible = false
-
-        vm.galleryAdapter.observe(requireActivity()){
+        galleryView?.isVisible = false
+        vm.galleryAdapter.observe(viewLifecycleOwner) {
             if(it != null) {
                 recyclerView?.adapter = it
-                recyclerView?.isVisible = it.itemCount >= 1
+                galleryView?.isVisible = it.itemCount >= 1
+            }
+        }
+
+        giveSolution?.setOnClickListener {
+            mainView.createSimpleDialog("Завершить задание?",
+                "Нажмите 'Да' если хотите дать ответ на задние и получить результат."
+            ) {
+                getAnswer()
+                vm.replace("CompletedTasksListFragment", null)
             }
         }
     }
 
-    override fun onDestroyView() {
-        vm.task.removeObservers(requireActivity())
-        vm.testAdapter.removeObservers(requireActivity())
-        vm.galleryAdapter.removeObservers(requireActivity())
+    override fun onStop() {
+        super.onStop()
+        if (vm.inGallery.value != true){
+            getAnswer()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (vm.endTask.value == true){
+            vm.replace("CompletedTasksListFragment", null)
+        }
+    }
+
+    private fun getAnswer(){
+        if (vm.endTask.value != true){
+            val answer = editAnswer?.text.toString()
+            vm.updateCompletedAnswerTask(answer)
+        }
+    }
+
+    private fun dispose(){
         vm.task.value = null
         vm.testAdapter.value = null
-        //vm.galleryAdapter.value = null
-        super.onDestroyView()
+        vm.galleryAdapter.value = null
+        vm.endTask.value = null
+        vm.inGallery.value = null
     }
 }

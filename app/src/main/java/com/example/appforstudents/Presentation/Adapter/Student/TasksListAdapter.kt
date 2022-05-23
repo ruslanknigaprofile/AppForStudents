@@ -13,7 +13,7 @@ import com.example.appforstudents.Model.Task
 import com.example.appforstudents.Presentation.View.Student.MainActivityStudent
 import com.example.appforstudents.R
 
-class TasksListAdapter(val tasksList: ArrayList<Task>, val vm: MainViewModelForStudent, val startTaskListener: StartTaskListener) : RecyclerView.Adapter<TasksListAdapter.TaskHolder>() {
+class TasksListAdapter(val tasksList: ArrayList<Task>, val vm: MainViewModelForStudent) : RecyclerView.Adapter<TasksListAdapter.TaskHolder>() {
 
     class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val taskTypeIcon =itemView.findViewById<ImageView>(R.id.taskTypeIcon)
@@ -43,12 +43,26 @@ class TasksListAdapter(val tasksList: ArrayList<Task>, val vm: MainViewModelForS
         holder.asses.text = "Задано в " + task.time
 
         holder.itemView.setOnClickListener{
-            startTaskListener.startTask(task)
+            vm.createSimpleDialog(
+                "Начать выполнение задания?",
+                "Если вы начнёте выполнение задания, вы не сможете прерваться, пока не завершите его.",
+                { startTask(task) })
         }
     }
 
-    interface StartTaskListener{
-        fun startTask(task: Task)
+    fun startTask(task: Task){
+        if (task.typeTask == "Test"){
+            val bundle = Bundle()
+            bundle.putString("positionSolutionTestTask", task.id)
+
+            vm.replace("SolutionTestFragment", bundle)
+        }
+        else if(task.typeTask == "Answer"){
+            val bundle = Bundle()
+            bundle.putString("positionSolutionAnswerTask", task.id)
+
+            vm.replace("SolutionAnswerTaskFragment", bundle)
+        }
     }
 
     override fun getItemCount(): Int {

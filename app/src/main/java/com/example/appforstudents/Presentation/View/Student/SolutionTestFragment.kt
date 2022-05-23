@@ -28,6 +28,8 @@ class SolutionTestFragment : Fragment() {
     var taskBody: TextView? = null
     var giveSolution: AppCompatButton? = null
     var galleryView: LinearLayout? = null
+    var teacherString: TextView? = null
+    var taskDate: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +64,8 @@ class SolutionTestFragment : Fragment() {
         testRecyclerView = view.findViewById(R.id.testItemRecyclerView)
         testRecyclerView?.layoutManager = LinearLayoutManager(context)
         recyclerView = view.findViewById(R.id.recyclerViewGallery)
+        teacherString = view.findViewById(R.id.teacher_string)
+        taskDate = view.findViewById(R.id.dateTask)
 
         init()
     }
@@ -70,12 +74,18 @@ class SolutionTestFragment : Fragment() {
         vm.task.observe(viewLifecycleOwner){
             if (it != null){
                 if (vm.galleryAdapter.value == null){
-                    //vm.getImagesForReview()
-                    vm.setSliderAdapter()
+                    vm.getImagesForReview()
                 }
 
-                taskBody?.text = vm.task.value?.bodyTask
+                taskBody?.text = it.bodyTask
                 vm.setTestAdapter()
+                teacherString?.text = it.teacherNames
+                taskDate?.text = it.date + " в " + it.time
+            }
+        }
+        vm.imagesList.observe(viewLifecycleOwner){
+            if (it != null){
+                vm.setSliderAdapter()
             }
         }
         vm.testAdapter.observe(viewLifecycleOwner){
@@ -87,8 +97,7 @@ class SolutionTestFragment : Fragment() {
         val mLayoutManager = LinearLayoutManager(requireContext())
         mLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         recyclerView?.layoutManager = mLayoutManager
-        recyclerView?.isVisible = false
-
+        galleryView?.isVisible = false
         vm.galleryAdapter.observe(viewLifecycleOwner) {
             if(it != null) {
                 recyclerView?.adapter = it
@@ -97,27 +106,20 @@ class SolutionTestFragment : Fragment() {
         }
 
         giveSolution?.setOnClickListener {
-            val answer = arrayListOf<Boolean>()
-            for (i in vm.testAdapter.value?.holders!!)
-            {
-                answer.add(i.checkBox.isChecked)
+            mainView.createSimpleDialog("Завершить задание?",
+            "Нажмите 'Да' если хотите дать ответ на задние и получить результат."
+            ) {
+                getAnswer()
+                vm.replace("CompletedTasksListFragment", null)
             }
-            vm.updateCompletedTestTask(answer)
-            vm.replace("CompletedTasksListFragment", null)
         }
     }
 
     override fun onStop() {
         super.onStop()
-        val answer = arrayListOf<Boolean>()
-        if (vm.testAdapter.value?.holders != null){
-            for (i in vm.testAdapter.value?.holders!!)
-            {
-                answer.add(i.checkBox.isChecked)
-            }
-            vm.updateCompletedTestTask(answer)
+        if (vm.inGallery.value != true){
+            getAnswer()
         }
-        mainView.createToast("Задание завершено!")
     }
 
     override fun onResume() {
@@ -127,11 +129,24 @@ class SolutionTestFragment : Fragment() {
         }
     }
 
+    private fun getAnswer(){
+        if (vm.endTask.value != true){
+            val answer = arrayListOf<Boolean>()
+            if (vm.testAdapter.value?.holders != null){
+                for (i in vm.testAdapter.value?.holders!!)
+                {
+                    answer.add(i.checkBox.isChecked)
+                }
+                vm.updateCompletedTestTask(answer)
+            }
+        }
+    }
 
     private fun dispose(){
         vm.task.value = null
         vm.testAdapter.value = null
         vm.galleryAdapter.value = null
         vm.endTask.value = null
+        vm.inGallery.value = null
     }
 }

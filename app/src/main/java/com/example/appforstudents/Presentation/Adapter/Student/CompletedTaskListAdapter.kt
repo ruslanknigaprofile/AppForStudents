@@ -8,15 +8,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appforstudents.Domain.ViewModel.Student.CompletedTasksListViewModel
+import com.example.appforstudents.Domain.ViewModel.Student.MainViewModelForStudent
+import com.example.appforstudents.Model.CompletedTask
 import com.example.appforstudents.R
 
-class CompletedTaskListAdapter(val vm: CompletedTasksListViewModel) : RecyclerView.Adapter<CompletedTaskListAdapter.TaskHolder>() {
+class CompletedTaskListAdapter(val completedTasksList: ArrayList<CompletedTask>, val vm: MainViewModelForStudent) : RecyclerView.Adapter<CompletedTaskListAdapter.TaskHolder>() {
 
     class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val taskTypeIcon =itemView.findViewById<ImageView>(R.id.taskTypeIcon)
         val taskType =itemView.findViewById<TextView>(R.id.taskType)
-        val asses =itemView.findViewById<TextView>(R.id.asses)
-        val taskMarker =itemView.findViewById<ImageView>(R.id.taskMarker)
+        val teacherString = itemView.findViewById<TextView>(R.id.teacher_string)
+        val asses = itemView.findViewById<TextView>(R.id.asses)
+        val taskMarker = itemView.findViewById<ImageView>(R.id.taskMarker)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskHolder {
@@ -25,23 +28,26 @@ class CompletedTaskListAdapter(val vm: CompletedTasksListViewModel) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: TaskHolder, position: Int) {
-        val completedTask = vm.completedTasksList.value!!
+        val task = completedTasksList.get(position).task
+        val completedTask = completedTasksList.get(position)
 
-        if (completedTask.get(position).task.typeTask == "Test"){
+        if (task.typeTask == "Test"){
             holder.taskTypeIcon.setImageResource(R.drawable.test_icon)
             holder.taskType.text = "Тест"
         }
-        else if(completedTask.get(position).task.typeTask == "Answer"){
+        else if(task.typeTask == "Answer"){
             holder.taskTypeIcon.setImageResource(R.drawable.task_icon)
             holder.taskType.text = "Задача"
         }
 
-        if (completedTask.get(position).asses){
-            holder.taskMarker.setImageResource(R.drawable.task_marker_asses)
-            holder.asses.text = "Сдан"
-        } else if(!completedTask.get(position).asses){
-            holder.taskMarker.setImageResource(R.drawable.task_marker_not_asses)
-            holder.asses.text = "Не сдан"
+        holder.teacherString.text = "Преподаватель: " + task.teacherNames
+
+        if (completedTask.asses){
+            holder.taskMarker.setImageResource(R.drawable.ic_baseline_circle_24_asses)
+            holder.asses.text = "Сдан в " + completedTask.time
+        } else if(!completedTask.asses){
+            holder.taskMarker.setImageResource(R.drawable.ic_baseline_circle_24_not_asses)
+            holder.asses.text = "Не сдан в " + completedTask.time
         }
 
         holder.itemView.setOnClickListener {
@@ -53,9 +59,6 @@ class CompletedTaskListAdapter(val vm: CompletedTasksListViewModel) : RecyclerVi
     }
 
     override fun getItemCount(): Int {
-        if (vm.completedTasksList.value != null)
-            return vm.completedTasksList.value!!.size
-        else
-            return 0
+        return completedTasksList.size
     }
 }

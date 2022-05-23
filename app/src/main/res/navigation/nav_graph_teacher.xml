@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/galleryFragment2"
-        android:name="com.example.appforstudents.Presentation.View.GalleryFragment"
+        android:name="com.example.appforstudents.Presentation.View.Teacher.GalleryFragment"
         android:label="fragment_gallery"
         tools:layout="@layout/fragment_gallery" >
         <argument

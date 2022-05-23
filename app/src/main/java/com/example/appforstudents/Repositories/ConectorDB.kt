@@ -5,10 +5,7 @@ import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.lifecycle.MutableLiveData
 import com.example.appforstudents.Domain.ViewModel.Student.TasksListViewModel
-import com.example.appforstudents.Model.CompletedTask
-import com.example.appforstudents.Model.Student
-import com.example.appforstudents.Model.Task
-import com.example.appforstudents.Model.Teacher
+import com.example.appforstudents.Model.*
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -159,6 +156,21 @@ class ConectorDB {
             override fun onDataChange(snapshot: DataSnapshot) {
                 raiting.value = snapshot.getValue(Int::class.java) as Int
             }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+
+    fun getTopic(topicList: MutableLiveData<ArrayList<Topic>>){
+        val topics: ArrayList<Topic> = arrayListOf()
+        mDataBaseInstance.getReference("TrainTask").addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children){
+                    topics.add(ds.getValue(Topic::class.java) as Topic)
+                }
+                topicList.value = topics
+            }
+
             override fun onCancelled(error: DatabaseError) {
             }
         })

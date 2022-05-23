@@ -17,8 +17,9 @@ class ReviewCompletedTaskViewModel(application: Application, val mainModel: Main
     var student = MutableLiveData(Student())
     var completedTasksList = MutableLiveData<ArrayList<CompletedTask>>()
     var galleryAdapter = MutableLiveData<GalleryAdapter?>()
-    var sliderImage = MutableLiveData<ArrayList<Uri>>(arrayListOf())
+    var imagesList = MutableLiveData<ArrayList<Uri>>()
     var position = MutableLiveData<Int>()
+    var inGallery = MutableLiveData<Boolean>()
 
     //Repositories
     private val connector = ConectorDB()
@@ -40,13 +41,12 @@ class ReviewCompletedTaskViewModel(application: Application, val mainModel: Main
     }
 
     fun getImagesForReview(){
-        sliderImage.value?.clear()
-        connector.getImages(completedTasksList.value!!.get(position.value!!).task, sliderImage)
+        connector.getImages(completedTasksList.value?.get(position.value!!)?.task!!, imagesList)
     }
 
-    //setAdapter
-    private fun setSliderAdapter(){
-        //galleryAdapter.value = GalleryAdapter(sliderImage.value!!, getApplication<Application>().baseContext, mainModel)
+    //setRecyclerViewAdapter
+    fun setSliderAdapter(){
+        galleryAdapter.value = GalleryAdapter(imagesList.value!!, getApplication<Application>().baseContext, inGallery, mainModel)
     }
 
     //Navigation

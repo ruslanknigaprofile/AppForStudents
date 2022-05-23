@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentation.View.Teacher.GalleryFragment"
-    android:background="@color/black">
+    tools:context=".Presentation.View.Student.GameTaskFragment"
+    android:background="#448AFF">
 
-    <ImageView
-        android:id="@+id/provide_image"
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:id="@+id/recyclerView"/>
 
 </FrameLayout>

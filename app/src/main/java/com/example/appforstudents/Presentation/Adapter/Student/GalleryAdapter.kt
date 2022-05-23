@@ -7,12 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.appforstudents.Domain.ViewModel.Student.MainViewModelForStudent
 import com.example.appforstudents.R
 
-class GalleryAdapter(val sliderImage: ArrayList<String>,val context: Context, val vm: MainViewModelForStudent): RecyclerView.Adapter<GalleryAdapter.TaskHolder>() {
+class GalleryAdapter(val sliderImage: ArrayList<Uri>,val context: Context, val inGallery: MutableLiveData<Boolean>, val vm: MainViewModelForStudent): RecyclerView.Adapter<GalleryAdapter.TaskHolder>() {
 
     class TaskHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val image = itemView.findViewById<ImageView>(R.id.gallery_image)
@@ -33,6 +34,7 @@ class GalleryAdapter(val sliderImage: ArrayList<String>,val context: Context, va
                 .into(holder.image)
 
             holder.image.setOnClickListener {
+                inGallery.value = true
                 val bundle =  Bundle()
                 bundle.putString("UriImage", imageUri.toString())
                 vm.replace("GalleryFragment", bundle)

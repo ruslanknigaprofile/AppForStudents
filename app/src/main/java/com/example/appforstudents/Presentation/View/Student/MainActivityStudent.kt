@@ -2,6 +2,7 @@ package com.example.appforstudents.Presentation.View.Student
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -23,15 +24,18 @@ class MainActivityStudent : AppCompatActivity() {
         vm = ViewModelProvider(this).get(MainViewModelForStudent::class.java)
         navController = Navigation.findNavController(this, R.id.fragment_place)
         vm.setNavigation(navController)
-
+        vm.setBuilder(AlertDialog.Builder(this))
         init()
     }
 
     private fun init(){
         botomBar = findViewById(R.id.bNav)
-        botomBar.setItemSelected(R.id.TasksMenu)
+        botomBar.setItemSelected(R.id.TrainTasksMenu)
         botomBar.setOnItemSelectedListener {
             when(it){
+                R.id.TrainTasksMenu ->{
+                    vm.replace("GameTaskFragment", null)
+                }
                 R.id.TasksMenu ->{
                     vm.replace("TasksListFragment",null)
                 }
@@ -43,6 +47,9 @@ class MainActivityStudent : AppCompatActivity() {
 
         vm.currentFragment.observe(this){
             when(it){
+                "GameTaskFragment" ->{
+                    botomBar.isVisible = true
+                }
                 "TasksListFragment" ->{
                     botomBar.isVisible = true
                 }
@@ -65,12 +72,6 @@ class MainActivityStudent : AppCompatActivity() {
 
     override fun onBackPressed() {
         when(vm.currentFragment.value){
-            "TasksListFragment" ->{
-                //1
-            }
-            "CompletedTasksListFragment" ->{
-                //2
-            }
             "SolutionAnswerTaskFragment" ->{
                 vm.createToast("Завершите задание!")
             }

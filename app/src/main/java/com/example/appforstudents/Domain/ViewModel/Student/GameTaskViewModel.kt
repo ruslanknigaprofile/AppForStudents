@@ -7,23 +7,25 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.appforstudents.Model.CompletedTask
 import com.example.appforstudents.Model.Student
-import com.example.appforstudents.Presentation.Adapter.Student.CompletedTaskListAdapter
-import com.example.appforstudents.Presentation.Adapter.Student.GroupCompletedTaskListAdapter
+import com.example.appforstudents.Model.Task
+import com.example.appforstudents.Model.Topic
+import com.example.appforstudents.Presentation.Adapter.Student.GameAdapter
+import com.example.appforstudents.Presentation.Adapter.Student.GroupTasksListAdapter
 import com.example.appforstudents.Repositories.ConectorDB
 
-class CompletedTasksListViewModel(application: Application, val mainModel: MainViewModelForStudent) : AndroidViewModel(application) {
+class GameTaskViewModel(application: Application, val mainModel: MainViewModelForStudent) : AndroidViewModel(application) {
 
     //Model
     var student = MutableLiveData(Student())
-    var completedTasksList = MutableLiveData<ArrayList<CompletedTask>>()
+    var topicList = MutableLiveData<ArrayList<Topic>>()
     private var dateSortList: ArrayList<String> = arrayListOf()
+    var completedTasksList = MutableLiveData<ArrayList<CompletedTask>>()
 
     //Adapter
-    var completedTasksListAdapter = MutableLiveData<GroupCompletedTaskListAdapter>()
+    var tasksListAdapter = MutableLiveData<GameAdapter>()
 
     //Repositories
     private val connector = ConectorDB()
-
 
     init {
         getSharedPreferences()
@@ -36,21 +38,15 @@ class CompletedTasksListViewModel(application: Application, val mainModel: MainV
             student.value!!.studentId = sharedPreferences.getString("id", null)!!
         }
     }
-    fun getCompletedTasks(){
-        connector.readCompletedTasks(student.value!!.studentId, completedTasksList)
+    fun getData(){
+        connector.readStudentByID(student.value!!.studentId, student)
+        connector.getTopic(topicList)
     }
 
-    //setRecyclerViewAdapter
-    fun setCompletedTasksListAdapter(){
-        dateSortList.clear()
-        for(task in completedTasksList.value!!){
-            if (!dateSortList.contains(task.date)){
-                dateSortList.add(task.date)
-            }
-        }
-        completedTasksListAdapter.value = GroupCompletedTaskListAdapter(dateSortList, completedTasksList.value!!, mainModel)
+    //setAdapter
+    fun setGameTaskAdapter(){
+        tasksListAdapter.value = GameAdapter(student.value!!, topicList.value!!, mainModel)
     }
-
 
     //Navigation
     fun replace(course: String, bundle: Bundle?) {

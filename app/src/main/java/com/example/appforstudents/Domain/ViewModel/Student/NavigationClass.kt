@@ -7,11 +7,14 @@ import java.util.*
 
 class NavigationClass(val navController: NavController) {
 
-    var from = "TasksListFragment"
+    var from = "GameTaskFragment"
     var to = ""
 
     fun replace(course: String, bundle: Bundle?){
         when (from) {
+            "GameTaskFragment" ->{
+                replaceFromGameTaskFragment(course,bundle)
+            }
             "TasksListFragment" -> {
                 replaceFromTaskListFragment(course, bundle)
             }
@@ -30,11 +33,33 @@ class NavigationClass(val navController: NavController) {
             "ReviewCompletedTaskFragment" -> {
                 replaceFromReviewCompletedTaskFragment(course,bundle)
             }
+            "SolveTrainTaskFragment" ->{
+
+            }
         }
     }
-
+    private fun replaceFromGameTaskFragment(course: String, bundle: Bundle?){
+        when(course){
+            "TasksListFragment" ->{
+                navController.navigate(R.id.action_gameTaskFragment_to_tasksListFragment, bundle)
+                from = course
+            }
+            "CompletedTasksListFragment" ->{
+                navController.navigate(R.id.action_gameTaskFragment_to_completedTasksListFragment, bundle)
+                from = course
+            }
+            "SolveTrainTaskFragment" ->{
+                navController.navigate(R.id.action_gameTaskFragment_to_solveTrainTaskFragment, bundle)
+                from = course
+            }
+        }
+    }
     private fun replaceFromTaskListFragment(course: String, bundle: Bundle?){
         when(course){
+            "GameTaskFragment" ->{
+                navController.navigate(R.id.action_tasksListFragment_to_gameTaskFragment, bundle)
+                from = course
+            }
             "CompletedTasksListFragment" ->{
                 navController.navigate(R.id.action_tasksListFragment_to_completedTasksListFragment, bundle)
                 from = course
@@ -51,6 +76,10 @@ class NavigationClass(val navController: NavController) {
     }
     private fun replaceFromCompletedTaskListFragment(course: String, bundle: Bundle?){
         when(course){
+            "GameTaskFragment" ->{
+                navController.navigate(R.id.action_completedTasksListFragment_to_gameTaskFragment, bundle)
+                from = course
+            }
             "TasksListFragment" ->{
                 navController.navigate(R.id.action_completedTasksListFragment_to_tasksListFragment, bundle)
                 from = course

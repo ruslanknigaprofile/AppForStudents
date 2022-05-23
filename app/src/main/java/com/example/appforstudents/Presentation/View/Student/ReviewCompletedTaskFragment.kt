@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -22,11 +23,17 @@ class ReviewCompletedTaskFragment : Fragment() {
     private lateinit var vm: ReviewCompletedTaskViewModel
     private lateinit var mainView: MainViewModelForStudent
 
-    var linearLayout: LinearLayout? = null
+    var scroll: ScrollView? = null
     var taskBody: TextView? = null
     var rightAnswer: TextView? = null
     var giveAnswer: TextView? = null
     var recyclerView: RecyclerView? = null
+    var galleryView: LinearLayout? = null
+    var teacherNames: TextView? = null
+    var dateTask: TextView? = null
+    var dateAnswer: TextView? = null
+    var timeTask: TextView? = null
+    var timeAnswer: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,36 +46,43 @@ class ReviewCompletedTaskFragment : Fragment() {
         ).get(ReviewCompletedTaskViewModel::class.java)
 
         if (arguments?.getString("positionReviewCompletedTask") != "position"){
+            dispose()
             val pos =  arguments?.getString("positionReviewCompletedTask")
             vm.position.value = pos?.toInt()
-            vm.galleryAdapter.value = null
+            vm.getCompletedTasks()
         }
-
-        vm.getCompletedTasks()
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_review_completed_task, container, false)
-
-        init(view)
-
-        return view
+        return inflater.inflate(R.layout.fragment_review_completed_task, container, false)
     }
 
-    private fun init(view: View)
-    {
-        val possition = vm.position.value!!
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        linearLayout = view.findViewById(R.id.background_image_view)
-
+        scroll = view.findViewById(R.id.viewId)
         taskBody = view.findViewById(R.id.taskBody)
         rightAnswer = view.findViewById(R.id.rightAnswer)
         giveAnswer = view.findViewById(R.id.giveAnswer)
+        recyclerView = view.findViewById(R.id.recyclerViewGallery)
+        galleryView = view.findViewById(R.id.galleryView)
+        teacherNames = view.findViewById(R.id.teacher_string)
+        dateTask = view.findViewById(R.id.dateTask)
+        dateAnswer = view.findViewById(R.id.dateAnswer)
+        timeTask = view.findViewById(R.id.timeTask)
+        timeAnswer = view.findViewById(R.id.timeAnswer)
 
-        vm.completedTasksList.observe(requireActivity())
+        init()
+    }
+
+    private fun init()
+    {
+        val possition = vm.position.value!!
+
+        vm.completedTasksList.observe(viewLifecycleOwner)
         {
             if (it != null) {
                 if (vm.galleryAdapter.value == null){
@@ -76,12 +90,17 @@ class ReviewCompletedTaskFragment : Fragment() {
                 }
 
                 val completedTask = vm.completedTasksList.value!!.get(possition)
-                if (completedTask.asses) {
-                    linearLayout?.setBackgroundColor(getResources().getColor(R.color.asses))
-                } else {
-                    linearLayout?.setBackgroundColor(getResources().getColor(R.color.dont_asses))
-                }
 
+                if (completedTask.asses) {
+                    scroll?.setBackgroundColor(getResources().getColor(R.color.asses))
+                } else {
+                    scroll?.setBackgroundColor(getResources().getColor(R.color.dont_asses))
+                }
+                teacherNames?.text = completedTask.task.teacherNames
+                dateTask?.text = completedTask.task.date
+                timeTask?.text = "в " + completedTask.task.time
+                dateAnswer?.text = completedTask.date
+                timeAnswer?.text = "в " + completedTask.time
                 taskBody?.text = completedTask.task.bodyTask
 
                 if (completedTask.task.typeTask == "Test") {
@@ -99,28 +118,29 @@ class ReviewCompletedTaskFragment : Fragment() {
             }
         }
 
+        vm.imagesList.observe(viewLifecycleOwner){
+            if (it != null){
+                vm.setSliderAdapter()
+            }
+        }
 
-        recyclerView = view.findViewById(R.id.recyclerViewGallery)
         val mLayoutManager = LinearLayoutManager(requireContext())
         mLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         recyclerView?.layoutManager = mLayoutManager
-        recyclerView?.isVisible = false
+        galleryView?.isVisible = false
 
-
-        vm.galleryAdapter.observe(requireActivity()) {
+        vm.galleryAdapter.observe(viewLifecycleOwner) {
             if (it != null) {
                 recyclerView?.adapter = it
-                recyclerView?.isVisible = vm.sliderImage.value!!.size >= 1
+                galleryView?.isVisible = it.itemCount > 0
             }
         }
     }
 
-    override fun onDestroyView() {
-        vm.galleryAdapter.removeObservers(requireActivity())
-        vm.completedTasksList.removeObservers(requireActivity())
+    private fun dispose(){
         vm.completedTasksList.value = null
-        //vm.galleryAdapter.value = null
-
-        super.onDestroyView()
+        vm.galleryAdapter.value = null
+        vm.imagesList.value = null
+        vm.position.value = null
     }
 }

@@ -1,4 +1,4 @@
-package com.example.appforstudents.Presentation.View
+package com.example.appforstudents.Presentation.View.Teacher
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

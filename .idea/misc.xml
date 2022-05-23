@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/drawable/custom_progress_bar.xml" value="0.1335" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/drawable/ic_baseline_add_box_24.xml" value="0.1395" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/drawable/ic_baseline_contacts_24.xml" value="0.124" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/drawable/ic_launcher_background.xml" value="0.124" />
@@ -10,6 +11,7 @@
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/drawable/ic_sharp_close_24.xml" value="0.1355" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/drawable/krugliye_ugli.xml" value="0.1755" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/drawable/krugliye_ugli_without_padding.xml" value="0.1355" />
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/drawable/separator.xml" value="0.1335" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/font/main_font.xml" value="0.284375" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/activity_main_for_student.xml" value="0.11302083333333333" />
@@ -17,6 +19,7 @@
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/activity_main_teacher.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/activity_registration.xml" value="0.2078804347826087" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/case_date_item.xml" value="0.22826086956521738" />
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/class_item.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/content_main_activity_teacher.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/create_gallery_item.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/custom_row.xml" value="0.2078804347826087" />
@@ -24,11 +27,14 @@
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_create_answer.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_create_test.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_gallery.xml" value="0.11302083333333333" />
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_gallery2.xml" value="0.22826086956521738" />
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_game_task.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_review_answer.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_review_completed_task.xml" value="0.2" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_review_test.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_solution_answer_task.xml" value="0.2078804347826087" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_solution_test.xml" value="0.2078804347826087" />
+        <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_solve_train_task.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_student.xml" value="0.12" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_students_list.xml" value="0.22826086956521738" />
         <entry key="..\:/DIPLOM/AppForStudents/app/src/main/res/layout/fragment_tasks_list.xml" value="0.2078804347826087" />

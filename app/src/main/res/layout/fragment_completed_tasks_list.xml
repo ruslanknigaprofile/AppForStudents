@@ -3,11 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Presentation.View.Student.CompletedTasksListFragment">
+    tools:context=".Presentation.View.Student.CompletedTasksListFragment"
+    android:background="#F06292">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:padding="10dp"
         android:id="@+id/completedTasksList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Вы пока ещё не выполнили ни одного задания!"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:id="@+id/annotation"
+        android:padding="10dp"/>
 </RelativeLayout>

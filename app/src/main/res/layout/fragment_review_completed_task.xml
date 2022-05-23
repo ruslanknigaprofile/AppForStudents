@@ -1,92 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Presentation.View.Student.ReviewCompletedTaskFragment"
-    android:orientation="vertical"
-    android:padding="20dp"
-    android:id="@+id/background_image_view">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Обзор выполненного задания"
-        android:textAlignment="center"
-        android:textAllCaps="true"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="35dp"/>
+    android:background="#FFCDD2"
+    android:id="@+id/viewId">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@drawable/krugliye_ugli">
-        <TextView
-            android:id="@+id/taskBody"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Задача"
-            android:textSize="22sp"
-            android:layout_marginBottom="10dp"/>
-
+        android:padding="20dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Верный ответ:"
-            android:textSize="21sp"
-            android:textStyle="bold" />
-
+            android:text="Обзор выполненного задания"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="22sp"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
 
         <TextView
-            android:id="@+id/rightAnswer"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Верный ответ"
-            android:textSize="21sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="10dp"/>
-
+            android:textSize="20sp"
+            android:text="От преподавателя:"
+            android:textStyle="bold"/>
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/teacher_string"
+            android:textSize="18sp"
+            android:text="Имя"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ваш ответ:"
-            android:textSize="21sp"
-            android:textStyle="bold" />
-
-
-        <TextView
-            android:id="@+id/giveAnswer"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="Получено:"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:text="Сдано:"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ваш ответ"
-            android:textSize="21sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/dateTask"
+                android:textSize="18sp"
+                android:text="Получено:"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/dateAnswer"
+                android:textSize="18sp"
+                android:text="Сдано:"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/timeTask"
+                android:textSize="18sp"
+                android:text="Получено:"/>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/timeAnswer"
+                android:textSize="18sp"
+                android:text="Сдано:"/>
+        </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="15dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/krugliye_ugli">
+            <TextView
+                android:id="@+id/taskBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Задача"
+                android:textSize="22sp"
+                android:layout_marginBottom="10dp"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Верный ответ:"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/rightAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Верный ответ"
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ваш ответ:"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/giveAnswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ваш ответ"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="35dp"/>
+
+        <LinearLayout
+            android:id="@+id/galleryView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/krugliye_ugli">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Прекреплённые файлы"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewGallery"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"/>
+        </LinearLayout>
     </LinearLayout>
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="35dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/krugliye_ugli">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Прекреплённые файлы"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewGallery"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"/>
-    </LinearLayout>
-
-</LinearLayout>
+</ScrollView>

@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/TrainTasksMenu"
+        android:icon="@drawable/ic_round_local_play_24"
+        android:title="Список Уроков"
+        app:cnb_iconColor="#0D47A1"/>
+
+    <item
         android:id="@+id/TasksMenu"
-        android:icon="@drawable/ic_sharp_task_24"
+        android:icon="@drawable/ic_sharp_list_alt_24"
         android:title="Список Заданий"
         app:cnb_iconColor="#1B5E20"/>
 
@@ -12,6 +18,6 @@
         android:id="@+id/CompletedTasksMenu"
         android:icon="@drawable/ic_sharp_task_24"
         android:title="Выполненные задания"
-        app:cnb_iconColor="#3E3B1D"/>
+        app:cnb_iconColor="#880E4F"/>
 
 </menu>

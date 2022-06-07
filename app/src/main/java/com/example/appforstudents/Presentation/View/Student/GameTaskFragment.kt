@@ -54,6 +54,13 @@ class GameTaskFragment : Fragment() {
                 vm.setGameTaskAdapter()
             }
         }
+        vm.student.observe(viewLifecycleOwner){
+            if (it != null && vm.topicList.value != null){
+                if(vm.topicList.value!!.size > 0){
+                    vm.setGameTaskAdapter()
+                }
+            }
+        }
 
         vm.tasksListAdapter.observe(viewLifecycleOwner){
             if (it != null){

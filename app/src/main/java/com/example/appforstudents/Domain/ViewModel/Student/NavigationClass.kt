@@ -34,7 +34,7 @@ class NavigationClass(val navController: NavController) {
                 replaceFromReviewCompletedTaskFragment(course,bundle)
             }
             "SolveTrainTaskFragment" ->{
-
+                replaceFromSolveTrainTaskFragment(course,bundle)
             }
         }
     }
@@ -50,6 +50,14 @@ class NavigationClass(val navController: NavController) {
             }
             "SolveTrainTaskFragment" ->{
                 navController.navigate(R.id.action_gameTaskFragment_to_solveTrainTaskFragment, bundle)
+                from = course
+            }
+        }
+    }
+    private fun replaceFromSolveTrainTaskFragment(course: String, bundle: Bundle?){
+        when(course){
+            "GameTaskFragment" ->{
+                navController.navigate(R.id.action_solveTrainTaskFragment_to_gameTaskFragment, bundle)
                 from = course
             }
         }

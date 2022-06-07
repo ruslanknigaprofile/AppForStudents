@@ -16,9 +16,9 @@ import com.example.appforstudents.Repositories.ConectorDB
 class GameTaskViewModel(application: Application, val mainModel: MainViewModelForStudent) : AndroidViewModel(application) {
 
     //Model
-    var student = MutableLiveData(Student())
+    private var studentId: String = ""
+    var student = MutableLiveData<Student>()
     var topicList = MutableLiveData<ArrayList<Topic>>()
-    private var dateSortList: ArrayList<String> = arrayListOf()
     var completedTasksList = MutableLiveData<ArrayList<CompletedTask>>()
 
     //Adapter
@@ -35,11 +35,11 @@ class GameTaskViewModel(application: Application, val mainModel: MainViewModelFo
     private fun getSharedPreferences(){
         val sharedPreferences = getApplication<Application>().baseContext.getSharedPreferences("sharedPrefs", Context.MODE_PRIVATE)
         if(sharedPreferences.getString("id", null) != null){
-            student.value!!.studentId = sharedPreferences.getString("id", null)!!
+            studentId = sharedPreferences.getString("id", null)!!
         }
     }
     fun getData(){
-        connector.readStudentByID(student.value!!.studentId, student)
+        connector.readStudentByID(studentId, student)
         connector.getTopic(topicList)
     }
 

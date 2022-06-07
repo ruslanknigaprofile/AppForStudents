@@ -64,24 +64,24 @@ class GameAdapter (val student: Student, val topicList: ArrayList<Topic>, val vm
         holder.view4Star.isVisible = false
 
         for (topic in student.completedTopic){
-            for (themes in topic.topic.themes){
+            for ((index,themes) in topic.topic.themes.withIndex()){
                 if (themes.name == currentTopic.themes.get(0).name){
-                    holder.asses1Star.text = topic.themeStar.get(0).toString()
+                    holder.asses1Star.text = topic.themeStar.get(index).toString()
                     holder.view1Star.isVisible = true
                 }
 
                 if (themes.name == currentTopic.themes.get(1).name){
-                    holder.asses2Star.text = topic.themeStar.get(1).toString()
+                    holder.asses2Star.text = topic.themeStar.get(index).toString()
                     holder.view2Star.isVisible = true
                 }
 
                 if (themes.name == currentTopic.themes.get(2).name){
-                    holder.asses3Star.text = topic.themeStar.get(2).toString()
+                    holder.asses3Star.text = topic.themeStar.get(index).toString()
                     holder.view3Star.isVisible = true
                 }
 
                 if (themes.name == currentTopic.themes.get(3).name){
-                    holder.asses4Star.text = topic.themeStar.get(3).toString()
+                    holder.asses4Star.text = topic.themeStar.get(index).toString()
                     holder.view4Star.isVisible = true
                 }
             }

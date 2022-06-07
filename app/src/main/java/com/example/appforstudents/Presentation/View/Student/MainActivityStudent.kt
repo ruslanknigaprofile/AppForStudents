@@ -50,6 +50,9 @@ class MainActivityStudent : AppCompatActivity() {
                 "GameTaskFragment" ->{
                     botomBar.isVisible = true
                 }
+                "SolveTrainTaskFragment" ->{
+                    botomBar.isVisible = false
+                }
                 "TasksListFragment" ->{
                     botomBar.isVisible = true
                 }
@@ -85,6 +88,11 @@ class MainActivityStudent : AppCompatActivity() {
             }
             "ReviewCompletedTaskFragment" ->{
                 vm.replace("CompletedTasksListFragment",null)
+            }
+            "SolveTrainTaskFragment" ->{
+                vm.createSimpleDialog("Выйти",
+                "Вы уверены что хотите прекратить выполнение задания?"
+                ) { vm.replace("GameTaskFragment", null) }
             }
         }
     }

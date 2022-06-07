@@ -89,6 +89,17 @@ class ConectorDB {
             }
         })
     }
+    fun readCompletedTopic(studentId: String, completedTopic: MutableLiveData<ArrayList<CompletedTopic>>){
+        var student: Student
+        mDataBaseInstance.getReference("StudentsID").child(studentId).addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                student = snapshot.getValue(Student::class.java) as Student
+                completedTopic.value = student.completedTopic
+            }
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
 
     fun readTasksListByCompletedTask(function: () -> Unit, tasksList: MutableLiveData<ArrayList<Task>>, completedTasks: MutableLiveData<ArrayList<CompletedTask>>){
         mDataBaseInstance.getReference("Task").addValueEventListener( object : ValueEventListener{
@@ -170,7 +181,26 @@ class ConectorDB {
                 }
                 topicList.value = topics
             }
-
+            override fun onCancelled(error: DatabaseError) {
+            }
+        })
+    }
+    fun getTheme(topicName: String, themeName: String, theme: MutableLiveData<Theme>){
+        var topics = Topic()
+        mDataBaseInstance.getReference("TrainTask").addValueEventListener( object : ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for(ds in snapshot.children){
+                    val topic = ds.getValue(Topic::class.java) as Topic
+                    if (topic.name == topicName){
+                        topics = topic
+                    }
+                }
+                for (themes in topics.themes){
+                    if (themes.name == themeName){
+                        theme.value = themes
+                    }
+                }
+            }
             override fun onCancelled(error: DatabaseError) {
             }
         })
@@ -180,6 +210,10 @@ class ConectorDB {
     fun updateStudentCompletedTaskInDB(studentId: String, completedTask: ArrayList<CompletedTask>){
         mDataBaseInstance.getReference("StudentsID").child(studentId)
             .child("completedTask").setValue(completedTask)
+    }
+    fun updateStudentCompletedTopicInDB(studentId: String, completedTopic: ArrayList<CompletedTopic>){
+        mDataBaseInstance.getReference("StudentsID").child(studentId)
+            .child("completedTopic").setValue(completedTopic)
     }
     fun updateStudentRaitingInDB(studentId: String, raiting: Int){
         mDataBaseInstance.getReference("StudentsID").child(studentId)
@@ -197,12 +231,13 @@ class ConectorDB {
                     try {
                         val index = it.result.toString().split("%7Cindex%7C")[1].toInt()
                         imagesListData[index] = it.result
-                        val imagesList = arrayListOf<Uri>()
+                        val imagesList = imagesListData.filterNotNull() as ArrayList
+                        /*
                         for (item in imagesListData){
                             if (item != null) {
                                 imagesList.add(item)
                             }
-                        }
+                        }*/
                         sliderImage.value = imagesList
                     }catch (e: Exception){
                     }

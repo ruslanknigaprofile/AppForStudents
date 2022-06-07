@@ -130,5 +130,11 @@
         <action
             android:id="@+id/action_solveTrainTaskFragment_to_gameTaskFragment"
             app:destination="@id/gameTaskFragment" />
+        <argument
+            android:name="themes"
+            android:defaultValue="themes" />
+        <argument
+            android:name="topic"
+            android:defaultValue="topic" />
     </fragment>
 </navigation>

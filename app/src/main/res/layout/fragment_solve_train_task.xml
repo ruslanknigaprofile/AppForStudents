@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Presentation.View.Student.SolveTrainTaskFragment"
     android:background="#B2FF59"
     android:padding="20dp">
@@ -14,12 +15,173 @@
         android:gravity="center"
         android:layout_gravity="center">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:text="Оставшееся время"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:progressDrawable="@drawable/custom_progress_bar"/>
-    </LinearLayout>
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:text="Собраные звёзды"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="10dp"/>
+        <RelativeLayout
+            android:layout_width="175dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:background="@drawable/star_back"
+                android:id="@+id/view5Star"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignParentEnd="true"
+                app:srcCompat="@drawable/ic_twotone_stars_24_gray"/>
+            <ImageView
+                android:background="@drawable/star_back"
+                android:id="@+id/view4Star"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="30dp"
+                app:srcCompat="@drawable/ic_twotone_stars_24_gray"/>
+            <ImageView
+                android:background="@drawable/star_back"
+                android:id="@+id/view3Star"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="60dp"
+                app:srcCompat="@drawable/ic_twotone_stars_24_gray"/>
+            <ImageView
+                android:background="@drawable/star_back"
+                android:id="@+id/view2Star"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="90dp"
+                app:srcCompat="@drawable/ic_twotone_stars_24_gray"/>
+
+            <ImageView
+                android:background="@drawable/star_back"
+                android:id="@+id/view1Star"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="120dp"
+                app:srcCompat="@drawable/ic_twotone_stars_24_gray" />
+        </RelativeLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+        <TextView
+            android:id="@+id/taskBody"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="задача"/>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp">
+            <RelativeLayout
+                android:id="@+id/answerCase1"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:background="@drawable/krugliye_ugli"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp">
+
+                <TextView
+                    android:id="@+id/taskAnswer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Number"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/answerCase2"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:background="@drawable/krugliye_ugli"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp">
+                <TextView
+                    android:id="@+id/taskAnswer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text="Number"
+                    android:gravity="center"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp">
+            <RelativeLayout
+                android:id="@+id/answerCase3"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:background="@drawable/krugliye_ugli"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp">
+                <TextView
+                    android:id="@+id/taskAnswer3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text="Number"
+                    android:gravity="center"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/answerCase4"
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:background="@drawable/krugliye_ugli"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp">
+                <TextView
+                    android:id="@+id/taskAnswer4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:text="Number"
+                    android:gravity="center"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>

@@ -10,7 +10,7 @@
         android:right="10dp" />
 
     <stroke android:color="#CC000000"
-        android:width="5dp"/>
+        android:width="3.5dp"/>
     <gradient
         android:type="linear"
         android:endColor="#F0F0F0"

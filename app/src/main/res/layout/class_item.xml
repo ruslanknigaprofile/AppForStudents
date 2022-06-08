@@ -23,8 +23,6 @@
         android:layout_height="170dp"
         android:orientation="horizontal"
         android:paddingTop="20dp"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp"
         android:paddingBottom="5dp">
         <RelativeLayout
             android:id="@+id/item1View"
@@ -118,9 +116,7 @@
         android:layout_height="180dp"
         android:orientation="horizontal"
         android:paddingTop="5dp"
-        android:paddingBottom="30dp"
-        android:paddingRight="15dp"
-        android:paddingLeft="15dp">
+        android:paddingBottom="30dp">
         <RelativeLayout
             android:id="@+id/item3View"
             android:layout_width="0dp"

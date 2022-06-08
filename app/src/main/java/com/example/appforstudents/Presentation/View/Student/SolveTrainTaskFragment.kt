@@ -36,6 +36,7 @@ class SolveTrainTaskFragment : Fragment() {
     var star3: ImageView? = null
     var star4: ImageView? = null
     var star5: ImageView? = null
+    var cases: ArrayList<RelativeLayout?> = arrayListOf()
     var case1: RelativeLayout? = null
     var case2: RelativeLayout? = null
     var case3: RelativeLayout? = null
@@ -83,6 +84,7 @@ class SolveTrainTaskFragment : Fragment() {
         case2 = view.findViewById(R.id.answerCase2)
         case3 = view.findViewById(R.id.answerCase3)
         case4 = view.findViewById(R.id.answerCase4)
+        cases = arrayListOf(case1, case2, case3, case4)
 
         dispose()
         init()
@@ -112,7 +114,7 @@ class SolveTrainTaskFragment : Fragment() {
         }
         vm.shuffled.observe(viewLifecycleOwner){
             if (it == true){
-                task?.text = vm.firstNumber.value.toString() +" "+ vm.theme.value!!.symbol +" "+ vm.secondNumber.value
+                task?.text = vm.firstNumber.value.toString() +" "+ vm.theme.value!!.symbol +" "+ vm.secondNumber.value + " = ?"
 
                 for ((index,answer) in answersTextView.withIndex()){
                     answer?.text = vm.arrayListAnswers.value?.get(index).toString()
@@ -133,49 +135,20 @@ class SolveTrainTaskFragment : Fragment() {
     }
 
     private fun setCase(){
-        case1?.setOnClickListener {
-            if (vm.arrayListAnswers.value?.get(0) == vm.answer.value){
-                starsImageView[vm.getAnswers.value!!]?.setImageResource(R.drawable.ic_twotone_stars_24)
-                vm.rightAnswers.value = vm.rightAnswers.value!!.plus(1)
-            }else{
-                starsImageView[vm.getAnswers.value!!]?.setImageResource(R.drawable.ic_twotone_stars_24_lose)
+        for ((index, case) in cases.withIndex()) {
+            case?.setOnClickListener {
+                if (vm.arrayListAnswers.value?.get(index) == vm.answer.value) {
+                    starsImageView[vm.getAnswers.value!!]?.setImageResource(R.drawable.ic_twotone_stars_24)
+                    vm.rightAnswers.value = vm.rightAnswers.value!!.plus(1)
+                } else {
+                    starsImageView[vm.getAnswers.value!!]?.setImageResource(R.drawable.ic_twotone_stars_24_lose)
+                }
+                vm.getAnswers.value = vm.getAnswers.value!!.plus(1)
+                vm.shuffled.value = false
+                if (vm.getAnswers.value!! < 5) {
+                    vm.randomTask()
+                }
             }
-            vm.getAnswers.value = vm.getAnswers.value!!.plus(1)
-            vm.shuffled.value = false
-            vm.randomTask()
-        }
-        case2?.setOnClickListener {
-            if (vm.arrayListAnswers.value?.get(1) == vm.answer.value){
-                starsImageView[vm.getAnswers.value!!]?.setImageResource(R.drawable.ic_twotone_stars_24)
-                vm.rightAnswers.value = vm.rightAnswers.value!!.plus(1)
-            }else{
-                starsImageView[vm.getAnswers.value!!]?.setImageResource(R.drawable.ic_twotone_stars_24_lose)
-            }
-            vm.getAnswers.value = vm.getAnswers.value!!.plus(1)
-            vm.shuffled.value = false
-            vm.randomTask()
-        }
-        case3?.setOnClickListener {
-            if (vm.arrayListAnswers.value?.get(2) == vm.answer.value){
-                starsImageView[vm.getAnswers.value!!]?.setImageResource(R.drawable.ic_twotone_stars_24)
-                vm.rightAnswers.value = vm.rightAnswers.value!!.plus(1)
-            }else{
-                starsImageView[vm.getAnswers.value!!]?.setImageResource(R.drawable.ic_twotone_stars_24_lose)
-            }
-            vm.getAnswers.value = vm.getAnswers.value!!.plus(1)
-            vm.shuffled.value = false
-            vm.randomTask()
-        }
-        case4?.setOnClickListener {
-            if (vm.arrayListAnswers.value?.get(3) == vm.answer.value){
-                starsImageView[vm.getAnswers.value!!]?.setImageResource(R.drawable.ic_twotone_stars_24)
-                vm.rightAnswers.value = vm.rightAnswers.value!!.plus(1)
-            }else{
-                starsImageView[vm.getAnswers.value!!]?.setImageResource(R.drawable.ic_twotone_stars_24_lose)
-            }
-            vm.getAnswers.value = vm.getAnswers.value!!.plus(1)
-            vm.shuffled.value = false
-            vm.randomTask()
         }
     }
 

@@ -21,14 +21,13 @@ class SolveTrainTaskViewModel(application: Application, val mainModel: MainViewM
     var firstNumber = MutableLiveData<Int>()
     var secondNumber = MutableLiveData<Int>()
     var answer = MutableLiveData(0)
-    private var answersList = intArrayOf(0,0,0)
     var arrayListAnswers = MutableLiveData<ArrayList<Int>>()
     var shuffled = MutableLiveData<Boolean>()
     var getAnswers = MutableLiveData(0)
     var rightAnswers = MutableLiveData(0)
     var topicName = MutableLiveData<String>()
     var themeName = MutableLiveData<String>()
-    var givedTask = MutableLiveData<Boolean>(false)
+    var givedTask = MutableLiveData(false)
 
     //Repositories
     private val connector = ConectorDB()
@@ -66,36 +65,54 @@ class SolveTrainTaskViewModel(application: Application, val mainModel: MainViewM
         }
     }
 
-    fun randomTask(){
+    fun randomTask() {
         getNumber()
 
         do {
             var replay = false
             arrayListAnswers.value = arrayListOf()
             arrayListAnswers.value!!.add(answer.value!!)
-            arrayListAnswers.value!!.add(Random.nextInt(theme.value!!.startNumber, answer.value!! *3))
-            arrayListAnswers.value!!.add(Random.nextInt(theme.value!!.startNumber, answer.value!! *3))
-            arrayListAnswers.value!!.add(Random.nextInt(theme.value!!.startNumber, answer.value!! *3))
+            arrayListAnswers.value!!.add(
+                Random.nextInt(
+                    theme.value!!.startNumber,
+                    (answer.value!! + 10) * 3
+                )
+            )
+            arrayListAnswers.value!!.add(
+                Random.nextInt(
+                    theme.value!!.startNumber,
+                    (answer.value!! + 10) * 3
+                )
+            )
+            arrayListAnswers.value!!.add(
+                Random.nextInt(
+                    theme.value!!.startNumber,
+                    (answer.value!! + 10) * 3
+                )
+            )
 
-            for (number1 in arrayListAnswers.value!!){
+            for (number1 in arrayListAnswers.value!!) {
                 var rep = 0
-                for (number2 in arrayListAnswers.value!!){
-                    if (number1 == number2){
+                for (number2 in arrayListAnswers.value!!) {
+                    if (number1 == number2) {
                         rep++
                     }
                 }
-                if (rep > 1){
+                if (rep > 1) {
                     replay = true
                 }
             }
 
-        }while (replay)
+        } while (replay)
 
 
 
         arrayListAnswers.value!!.shuffle()
         shuffled.value = true
     }
+
+
+
 
     fun giveTask() {
         viewModelScope.launch(Dispatchers.Main) {

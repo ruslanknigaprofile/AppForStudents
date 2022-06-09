@@ -36,6 +36,9 @@ class NavigationClass(val navController: NavController) {
             "SolveTrainTaskFragment" ->{
                 replaceFromSolveTrainTaskFragment(course,bundle)
             }
+            "TheoryFragment" ->{
+                replaceFromTheoryFragment(course,bundle)
+            }
         }
     }
     private fun replaceFromGameTaskFragment(course: String, bundle: Bundle?){
@@ -48,8 +51,20 @@ class NavigationClass(val navController: NavController) {
                 navController.navigate(R.id.action_gameTaskFragment_to_completedTasksListFragment, bundle)
                 from = course
             }
+            "TheoryFragment" ->{
+                navController.navigate(R.id.action_gameTaskFragment_to_theoryFragment, bundle)
+                from = course
+            }
+        }
+    }
+    private fun replaceFromTheoryFragment(course: String, bundle: Bundle?){
+        when(course){
             "SolveTrainTaskFragment" ->{
-                navController.navigate(R.id.action_gameTaskFragment_to_solveTrainTaskFragment, bundle)
+                navController.navigate(R.id.action_theoryFragment_to_solveTrainTaskFragment, bundle)
+                from = course
+            }
+            "GameTaskFragment" ->{
+                navController.navigate(R.id.action_theoryFragment_to_gameTaskFragment, bundle)
                 from = course
             }
         }

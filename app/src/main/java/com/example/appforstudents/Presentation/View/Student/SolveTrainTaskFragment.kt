@@ -51,10 +51,6 @@ class SolveTrainTaskFragment : Fragment() {
             mainView
         )
         ).get(SolveTrainTaskViewModel::class.java)
-
-        vm.topicName.value = arguments?.getString("topic")
-        vm.themeName.value = arguments?.getString("themes")
-        vm.getThemes()
     }
 
     override fun onCreateView(
@@ -86,7 +82,6 @@ class SolveTrainTaskFragment : Fragment() {
         case4 = view.findViewById(R.id.answerCase4)
         cases = arrayListOf(case1, case2, case3, case4)
 
-        dispose()
         init()
     }
 
@@ -152,12 +147,5 @@ class SolveTrainTaskFragment : Fragment() {
         }
     }
 
-    private fun dispose(){
-        vm.shuffled.value = null
-        vm.arrayListAnswers.value = null
-        vm.theme.value = null
-        vm.getAnswers.value = 0
-        vm.rightAnswers.value = 0
-        vm.givedTask.value = false
-    }
+
 }

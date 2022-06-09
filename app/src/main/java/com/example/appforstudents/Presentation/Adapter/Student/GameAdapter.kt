@@ -92,28 +92,28 @@ class GameAdapter (val student: Student, val topicList: ArrayList<Topic>, val vm
             bundle.putString("topic", currentTopic.name)
             bundle.putString("themes", currentTopic.themes.get(0).name)
 
-            vm.replace("SolveTrainTaskFragment", bundle)
+            vm.replace("TheoryFragment", bundle)
         }
         holder.item2View.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("topic", currentTopic.name)
             bundle.putString("themes", currentTopic.themes.get(1).name)
 
-            vm.replace("SolveTrainTaskFragment", bundle)
+            vm.replace("TheoryFragment", bundle)
         }
         holder.item3View.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("topic", currentTopic.name)
             bundle.putString("themes", currentTopic.themes.get(2).name)
 
-            vm.replace("SolveTrainTaskFragment", bundle)
+            vm.replace("TheoryFragment", bundle)
         }
         holder.item4View.setOnClickListener {
             val bundle = Bundle()
             bundle.putString("topic", currentTopic.name)
             bundle.putString("themes", currentTopic.themes.get(3).name)
 
-            vm.replace("SolveTrainTaskFragment", bundle)
+            vm.replace("TheoryFragment", bundle)
         }
     }
 

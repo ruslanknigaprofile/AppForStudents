@@ -67,7 +67,7 @@ class SolveTrainTaskViewModel(application: Application, val mainModel: MainViewM
 
     fun randomTask() {
         getNumber()
-
+        var fault = 0
         do {
             var replay = false
             arrayListAnswers.value = arrayListOf()
@@ -75,22 +75,22 @@ class SolveTrainTaskViewModel(application: Application, val mainModel: MainViewM
             arrayListAnswers.value!!.add(
                 Random.nextInt(
                     theme.value!!.startNumber,
-                    (answer.value!! + 10) * 3
+                    (answer.value!! + fault) * 2
                 )
             )
             arrayListAnswers.value!!.add(
                 Random.nextInt(
                     theme.value!!.startNumber,
-                    (answer.value!! + 10) * 3
+                    (answer.value!! + fault) * 2
                 )
             )
             arrayListAnswers.value!!.add(
                 Random.nextInt(
                     theme.value!!.startNumber,
-                    (answer.value!! + 10) * 3
+                    (answer.value!! + fault) * 2
                 )
             )
-
+            fault++
             for (number1 in arrayListAnswers.value!!) {
                 var rep = 0
                 for (number2 in arrayListAnswers.value!!) {

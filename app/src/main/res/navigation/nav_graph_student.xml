@@ -119,8 +119,8 @@
             android:id="@+id/action_gameTaskFragment_to_completedTasksListFragment"
             app:destination="@id/completedTasksListFragment" />
         <action
-            android:id="@+id/action_gameTaskFragment_to_solveTrainTaskFragment"
-            app:destination="@id/solveTrainTaskFragment" />
+                android:id="@+id/action_gameTaskFragment_to_theoryFragment"
+                app:destination="@id/theoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/solveTrainTaskFragment"
@@ -130,11 +130,22 @@
         <action
             android:id="@+id/action_solveTrainTaskFragment_to_gameTaskFragment"
             app:destination="@id/gameTaskFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/theoryFragment"
+            android:name="com.example.appforstudents.Presentation.View.Student.TheoryFragment"
+            android:label="TheoryFragment" >
+        <action
+                android:id="@+id/action_theoryFragment_to_solveTrainTaskFragment"
+                app:destination="@id/solveTrainTaskFragment" />
+        <action
+                android:id="@+id/action_theoryFragment_to_gameTaskFragment"
+                app:destination="@id/gameTaskFragment" />
         <argument
-            android:name="themes"
-            android:defaultValue="themes" />
+                android:name="themes"
+                android:defaultValue="themes" />
         <argument
-            android:name="topic"
-            android:defaultValue="topic" />
+                android:name="topic"
+                android:defaultValue="topic" />
     </fragment>
 </navigation>

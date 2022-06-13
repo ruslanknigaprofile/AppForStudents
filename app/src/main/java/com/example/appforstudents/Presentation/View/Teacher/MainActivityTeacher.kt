@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.appforstudents.Domain.ViewModel.Teacher.MainViewModelForTeacher
+import com.example.appforstudents.Model.Constant
 import com.example.appforstudents.R
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.messaging.FirebaseMessaging
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
 
@@ -69,6 +71,8 @@ class MainActivityTeacher : AppCompatActivity() {
                 }
             }
         }
+
+        FirebaseMessaging.getInstance().subscribeToTopic(Constant.TEACHER_TOPIC)
     }
 
     override fun onBackPressed() {

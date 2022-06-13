@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +26,7 @@ class TheoryFragment : Fragment() {
     private var backImage: ImageView? = null
     private var nextImage: ImageView? = null
     private var image: ImageView? = null
+    private var textSkip: TextView? = null
     private var index = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,6 +59,7 @@ class TheoryFragment : Fragment() {
         backImage?.isVisible = false
         nextImage = view.findViewById(R.id.next)
         nextImage?.isVisible = false
+        textSkip = view.findViewById(R.id.skipped)
 
         dispose()
         init()
@@ -95,11 +98,19 @@ class TheoryFragment : Fragment() {
                 ) { vm.replace("SolveTrainTaskFragment", null) }
             }
         }
+
+        textSkip?.setOnClickListener {
+            mainView.createSimpleDialog(
+                "Начать выполнение задания?",
+                "Нажав 'Да' вы перейдёте к выполнению задания."
+            ) { vm.replace("SolveTrainTaskFragment", null) }
+        }
     }
 
     private fun setGallery(){
         Glide.with(requireActivity())
             .load(vm.theme.value!!.imageList[index].toUri())
+            .centerInside()
             .into(image!!)
     }
 

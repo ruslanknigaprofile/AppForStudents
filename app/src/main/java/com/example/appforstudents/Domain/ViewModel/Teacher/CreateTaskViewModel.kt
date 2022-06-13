@@ -7,8 +7,7 @@ import android.os.Bundle
 import androidx.core.net.toUri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.appforstudents.Model.Task
-import com.example.appforstudents.Model.Teacher
+import com.example.appforstudents.Model.*
 import com.example.appforstudents.Presentation.Adapter.Teacher.CreateGalleryAdapter
 import com.example.appforstudents.Presentation.Adapter.Teacher.GalleryAdapter
 import com.example.appforstudents.Presentation.Adapter.Teacher.TestAdapter
@@ -46,6 +45,15 @@ class CreateTaskViewModel(application: Application, val mainModel: MainViewModel
         task.value!!.teacherId = teacher.value!!.teacherId
         task.value!!.teacherNames = teacher.value!!.name
         connector.writeTaskInDB(task.value!!)
+
+        PushNotification(
+            NotificationData(
+                "Новое задание!",
+                "Преподаватель '${task.value!!.teacherNames}' добавил новое задание."),
+            Constant.STUDENT_TOPIC
+        ).also {
+            mainModel.sendNotification(it)
+        }
     }
 
     //Adapters

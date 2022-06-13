@@ -6,9 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.appforstudents.Model.CompletedTask
-import com.example.appforstudents.Model.Student
-import com.example.appforstudents.Model.Task
+import com.example.appforstudents.Model.*
 import com.example.appforstudents.Presentation.Adapter.Student.GalleryAdapter
 import com.example.appforstudents.Presentation.Adapter.Student.TestAdapter
 import com.example.appforstudents.Repositories.ConectorDB
@@ -83,6 +81,15 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
         connector.updateStudentCompletedTaskInDB(student.value!!.studentId, completedTasksList.value!!)
         endTask.value = true
         mainModel.createToast("Задание завершено!")
+
+        PushNotification(
+            NotificationData(
+                "Задание пройдено!",
+                "Задача '${task.value!!.bodyTask}' была решена учащимся."),
+            Constant.TEACHER_TOPIC
+        ).also {
+            mainModel.sendNotification(it)
+        }
     }
     fun updateCompletedTestTask(solution: ArrayList<Boolean>){
         val completedTask = CompletedTask()
@@ -115,6 +122,15 @@ class SolutionTaskViewModel(application: Application, val mainModel: MainViewMod
         connector.updateStudentCompletedTaskInDB(student.value!!.studentId, completedTasksList.value!!)
         endTask.value = true
         mainModel.createToast("Задание завершено!")
+
+        PushNotification(
+            NotificationData(
+                "Задание пройдено!",
+                "Тест '${task.value!!.bodyTask}' был решён учащимся."),
+            Constant.TEACHER_TOPIC
+        ).also {
+            mainModel.sendNotification(it)
+        }
     }
 
     //Navigation

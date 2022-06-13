@@ -9,6 +9,11 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import com.example.appforstudents.Domain.ViewModel.Teacher.NavigationClass
+import com.example.appforstudents.Model.PushNotification
+import com.example.appforstudents.Repositories.RetrofitInstance
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainViewModelForTeacher(application: Application) : AndroidViewModel(application) {
     //Navigation
@@ -40,5 +45,13 @@ class MainViewModelForTeacher(application: Application) : AndroidViewModel(appli
 
     fun createToast(text: String){
         Toast.makeText(getApplication(), text, Toast.LENGTH_SHORT).show()
+    }
+
+    fun sendNotification(notification: PushNotification) = CoroutineScope(Dispatchers.IO).launch {
+        try {
+            val response = RetrofitInstance.api.postNotification(notification)
+        }catch (e: Exception){
+            //createToast(e.toString())
+        }
     }
 }

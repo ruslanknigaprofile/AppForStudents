@@ -1,7 +1,13 @@
 package com.example.appforstudents.Presentation.View.Student
 
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -9,12 +15,18 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.appforstudents.R
 import com.example.appforstudents.Domain.ViewModel.Student.MainViewModelForStudent
+import com.example.appforstudents.Model.Constant.Companion.STUDENT_TOPIC
+import com.example.appforstudents.Model.Constant.Companion.TEACHER_TOPIC
+import com.example.appforstudents.Model.NotificationData
+import com.example.appforstudents.Model.PushNotification
+import com.example.appforstudents.Repositories.MyFirebaseMessagingService
+import com.google.firebase.messaging.Constants
+import com.google.firebase.messaging.FirebaseMessaging
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 
 class MainActivityStudent : AppCompatActivity() {
 
     private lateinit var vm: MainViewModelForStudent
-
     private lateinit var botomBar: ChipNavigationBar
     private lateinit var navController: NavController
 
@@ -35,6 +47,7 @@ class MainActivityStudent : AppCompatActivity() {
             when(it){
                 R.id.TrainTasksMenu ->{
                     vm.replace("GameTaskFragment", null)
+
                 }
                 R.id.TasksMenu ->{
                     vm.replace("TasksListFragment",null)
@@ -74,6 +87,8 @@ class MainActivityStudent : AppCompatActivity() {
                 }
             }
         }
+
+        FirebaseMessaging.getInstance().subscribeToTopic(STUDENT_TOPIC)
     }
 
     override fun onBackPressed() {
@@ -101,5 +116,9 @@ class MainActivityStudent : AppCompatActivity() {
                 vm.replace("GameTaskFragment", null)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }

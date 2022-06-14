@@ -39,6 +39,9 @@ class NavigationClass(val navController: NavController) {
             "TheoryFragment" ->{
                 replaceFromTheoryFragment(course,bundle)
             }
+            "StudentFragment" ->{
+                replaceFromStudentFragment(course,bundle)
+            }
         }
     }
     private fun replaceFromGameTaskFragment(course: String, bundle: Bundle?){
@@ -53,6 +56,10 @@ class NavigationClass(val navController: NavController) {
             }
             "TheoryFragment" ->{
                 navController.navigate(R.id.action_gameTaskFragment_to_theoryFragment, bundle)
+                from = course
+            }
+            "StudentFragment" ->{
+                navController.navigate(R.id.action_gameTaskFragment_to_studentFragment2, bundle)
                 from = course
             }
         }
@@ -95,6 +102,10 @@ class NavigationClass(val navController: NavController) {
                 navController.navigate(R.id.action_tasksListFragment_to_solutionTestFragment, bundle)
                 from = course
             }
+            "StudentFragment" ->{
+                navController.navigate(R.id.action_tasksListFragment_to_studentFragment2, bundle)
+                from = course
+            }
         }
     }
     private fun replaceFromCompletedTaskListFragment(course: String, bundle: Bundle?){
@@ -109,6 +120,10 @@ class NavigationClass(val navController: NavController) {
             }
             "ReviewCompletedTaskFragment" ->{
                 navController.navigate(R.id.action_completedTasksListFragment_to_reviewCompletedTaskFragment, bundle)
+                from = course
+            }
+            "StudentFragment" ->{
+                navController.navigate(R.id.action_completedTasksListFragment_to_studentFragment2, bundle)
                 from = course
             }
         }
@@ -178,6 +193,22 @@ class NavigationClass(val navController: NavController) {
             "GalleryFragment" ->{
                 navController.navigate(R.id.action_reviewCompletedTaskFragment_to_galleryFragment, bundle)
                 to = from
+                from = course
+            }
+        }
+    }
+    private fun replaceFromStudentFragment(course: String, bundle: Bundle?){
+        when(course){
+            "GameTaskFragment" ->{
+                navController.navigate(R.id.action_studentFragment2_to_gameTaskFragment, bundle)
+                from = course
+            }
+            "CompletedTasksListFragment" ->{
+                navController.navigate(R.id.action_studentFragment2_to_completedTasksListFragment, bundle)
+                from = course
+            }
+            "TasksListFragment" ->{
+                navController.navigate(R.id.action_studentFragment2_to_tasksListFragment, bundle)
                 from = course
             }
         }

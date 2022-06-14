@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Presentation.View.Student.CompletedTasksListFragment"
-    android:background="#F06292">
+    android:background="#FFD180">
 
     <androidx.recyclerview.widget.RecyclerView
         android:padding="10dp"

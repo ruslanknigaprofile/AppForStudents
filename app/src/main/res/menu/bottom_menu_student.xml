@@ -5,19 +5,25 @@
     <item
         android:id="@+id/TrainTasksMenu"
         android:icon="@drawable/ic_round_local_play_24"
-        android:title="Список Уроков"
+        android:title="СПИСОК УРОКОВ"
         app:cnb_iconColor="#0D47A1"/>
 
     <item
         android:id="@+id/TasksMenu"
         android:icon="@drawable/ic_sharp_list_alt_24"
-        android:title="Список Заданий"
+        android:title="СПИСОК ЗАДАНИЙ"
         app:cnb_iconColor="#1B5E20"/>
 
     <item
         android:id="@+id/CompletedTasksMenu"
         android:icon="@drawable/ic_sharp_task_24"
-        android:title="Выполненные задания"
-        app:cnb_iconColor="#880E4F"/>
+        android:title="ВЫПОЛНЕННЫЕ ЗАДАНИЯ"
+        app:cnb_iconColor="#FF6D00"/>
+
+    <item
+            android:id="@+id/StudentMenu"
+            android:icon="@drawable/ic_sharp_account_box_24"
+            android:title="ЛИЧНЫЙ КАБИНЕТ"
+            app:cnb_iconColor="#00B8D4"/>
 
 </menu>

@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_tasksListFragment_to_gameTaskFragment"
             app:destination="@id/gameTaskFragment" />
+        <action
+                android:id="@+id/action_tasksListFragment_to_studentFragment2"
+                app:destination="@id/studentFragment2" />
     </fragment>
     <fragment
         android:id="@+id/completedTasksListFragment"
@@ -37,6 +40,9 @@
         <action
             android:id="@+id/action_completedTasksListFragment_to_gameTaskFragment"
             app:destination="@id/gameTaskFragment" />
+        <action
+                android:id="@+id/action_completedTasksListFragment_to_studentFragment2"
+                app:destination="@id/studentFragment2" />
     </fragment>
     <fragment
         android:id="@+id/solutionAnswerTaskFragment"
@@ -121,6 +127,9 @@
         <action
                 android:id="@+id/action_gameTaskFragment_to_theoryFragment"
                 app:destination="@id/theoryFragment" />
+        <action
+                android:id="@+id/action_gameTaskFragment_to_studentFragment2"
+                app:destination="@id/studentFragment2" />
     </fragment>
     <fragment
         android:id="@+id/solveTrainTaskFragment"
@@ -147,5 +156,20 @@
         <argument
                 android:name="topic"
                 android:defaultValue="topic" />
+    </fragment>
+    <fragment
+            android:id="@+id/studentFragment2"
+            android:name="com.example.appforstudents.Presentation.View.Student.StudentFragment"
+            android:label="fragment_student2"
+            tools:layout="@layout/fragment_student2" >
+        <action
+                android:id="@+id/action_studentFragment2_to_tasksListFragment"
+                app:destination="@id/tasksListFragment" />
+        <action
+                android:id="@+id/action_studentFragment2_to_gameTaskFragment"
+                app:destination="@id/gameTaskFragment" />
+        <action
+                android:id="@+id/action_studentFragment2_to_completedTasksListFragment"
+                app:destination="@id/completedTasksListFragment" />
     </fragment>
 </navigation>

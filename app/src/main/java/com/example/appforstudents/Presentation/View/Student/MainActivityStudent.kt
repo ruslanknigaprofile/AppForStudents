@@ -55,6 +55,9 @@ class MainActivityStudent : AppCompatActivity() {
                 R.id.CompletedTasksMenu ->{
                     vm.replace("CompletedTasksListFragment",null)
                 }
+                R.id.StudentMenu ->{
+                    vm.replace("StudentFragment", null)
+                }
             }
         }
 
